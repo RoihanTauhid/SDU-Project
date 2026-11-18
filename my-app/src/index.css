@@ -1,30 +1,143 @@
-/* Reset CSS */
+/* ============================================================
+   SDU DESIGN SYSTEM (SISTEM DAUR ULANG)
+   Modern, Clean, High-Contrast Sustainable Tech UI
+============================================================ */
 
-* {
+:root {
+  /* Brand Primary Colors */
+  --sdu-primary: #006241;
+  --sdu-primary-hover: #004d34;
+  --sdu-primary-light: #e6f4ea;
+  --sdu-primary-border: #a7d7b5;
+
+  /* Accent & Highlight Colors */
+  --sdu-accent: #0284c7;
+  --sdu-accent-light: #e0f2fe;
+  --sdu-accent-hover: #0369a1;
+
+  /* Dark Neutral / Slate */
+  --sdu-dark: #0f172a;
+  --sdu-dark-soft: #1e293b;
+  --sdu-gray-700: #334155;
+  --sdu-gray-600: #475569;
+  --sdu-gray-500: #64748b;
+  --sdu-gray-400: #94a3b8;
+  --sdu-gray-300: #cbd5e1;
+  --sdu-gray-200: #e2e8f0;
+  --sdu-gray-100: #f1f5f9;
+  --sdu-gray-50: #f8fafc;
+  --sdu-white: #ffffff;
+
+  /* Semantic Status Colors */
+  --status-menunggu-bg: #e0f2fe;
+  --status-menunggu-text: #0284c7;
+  --status-menunggu-border: #bae6fd;
+
+  --status-diproses-bg: #e0e7ff;
+  --status-diproses-text: #4338ca;
+  --status-diproses-border: #c7d2fe;
+
+  --status-dijemput-bg: #fef3c7;
+  --status-dijemput-text: #b45309;
+  --status-dijemput-border: #fde68a;
+
+  --status-selesai-bg: #d1fae5;
+  --status-selesai-text: #047857;
+  --status-selesai-border: #a7f3d0;
+
+  /* Elevation Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 2px 4px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 14px -1px rgba(15, 23, 42, 0.06), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 25px -3px rgba(15, 23, 42, 0.07), 0 4px 10px -4px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 20px 30px -4px rgba(15, 23, 42, 0.08), 0 8px 16px -6px rgba(15, 23, 42, 0.04);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Base Reset */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #dfdfdf;
+  font-family: var(--font-sans);
+  background-color: var(--sdu-gray-50);
+  color: var(--sdu-dark);
+  line-height: 1.5;
+  min-height: 100vh;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+  transition: all 0.2s ease;
 }
 
-ul {
+ul, ol {
   list-style: none;
 }
 
 button {
   font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

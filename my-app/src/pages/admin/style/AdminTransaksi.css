@@ -1,146 +1,549 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --gradasi-hijau: linear-gradient(
-    135deg,
-    #0b3d2e 0%,
-    #1f7a52 55%,
-    #2fa66d 100%
-  );
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
-}
+/* ==========================================================
+   ADMIN TRANSAKSI PAGE STYLES (REFERENCE IMAGE 4 1:1 REPLICATION)
+========================================================== */
 
-/* =======================
-   LAYOUT
-======================= */
-
-.admin-layout {
+.sdu-transaksi-content-wrapper {
   display: flex;
-  min-height: 100vh;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.admin-content {
-  flex: 1;
-  padding: 30px 34px 40px 34px;
-  background: var(--body);
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-/* =======================
-   HEADER
-======================= */
-
-.admin-page-header {
+/* 1. Header Right Metric Chips */
+.sdu-admin-header-chips {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: var(--gradasi-hijau);
-  padding: 24px 28px;
-  border-radius: 20px;
-  box-shadow: var(--shadow-lembut);
-  margin-bottom: 26px;
+  gap: 12px;
 }
 
-.header-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--gold);
-  font-size: 20px;
+.sdu-header-chip-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.sdu-chip-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 16px;
+}
+
+.sdu-chip-icon-wrap.green {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.sdu-chip-icon-wrap.amber {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.sdu-chip-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sdu-chip-sub {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.sdu-chip-val {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.sdu-chip-val.green {
+  color: #059669;
+}
+
+.sdu-chip-val.amber {
+  color: #d97706;
+}
+
+/* 2. Status Pill Filters Bar */
+.sdu-status-pills-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.sdu-pill-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.sdu-pill-tab:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.sdu-pill-tab.active {
+  background: #0f3e2e;
+  border-color: #0f3e2e;
+  color: #ffffff;
+}
+
+.sdu-pill-count {
+  background: rgba(148, 163, 184, 0.2);
+  color: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 9999px;
+}
+
+.sdu-pill-tab.active .sdu-pill-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.sdu-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.sdu-pill-dot.menunggu {
+  background: #f59e0b;
+}
+
+.sdu-pill-dot.diproses {
+  background: #3b82f6;
+}
+
+.sdu-pill-dot.dijemput {
+  background: #8b5cf6;
+}
+
+.sdu-pill-dot.selesai {
+  background: #10b981;
+}
+
+/* 3. Operational Dispatch Alert Banner (Image 4 1:1) */
+.sdu-dispatch-alert-banner {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sdu-dispatch-alert-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sdu-dispatch-alert-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #dbeafe;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
   flex-shrink: 0;
 }
 
-.admin-transaksi-title {
+.sdu-dispatch-alert-msg {
   margin: 0;
-  color: #ffffff;
+  font-size: 13.5px;
+  color: #1e3a8a;
+  line-height: 1.4;
+}
+
+.sdu-dispatch-alert-msg strong {
   font-weight: 800;
-  font-size: 22px;
 }
 
-.admin-page-subtitle {
-  margin: 4px 0 0 0;
-  color: rgba(255, 255, 255, 0.8);
+.sdu-dispatch-alert-action {
+  background: transparent;
+  border: none;
+  color: #1d4ed8;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.sdu-dispatch-alert-action:hover {
+  background: #dbeafe;
+  text-decoration: underline;
+}
+
+/* 4. Transaction Cards Grid (2-columns matching Image 4) */
+.sdu-admin-trx-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* 5. Pagination Bar (Image 4 1:1) */
+.sdu-admin-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 8px;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.sdu-pagination-info {
   font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
 }
 
-/* =======================
-   EMPTY STATE
-======================= */
+.sdu-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sdu-pagination-btn {
+  font-family: inherit;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-pagination-btn.nav {
+  padding: 6px 12px;
+}
+
+.sdu-pagination-btn.num {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sdu-pagination-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.sdu-pagination-btn.active {
+  background: #0f3e2e;
+  border-color: #0f3e2e;
+  color: #ffffff;
+}
+
+.sdu-pagination-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* 6. Empty & Loading States */
+.sdu-transaksi-loading {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 60px 20px;
+  text-align: center;
+  color: #64748b;
+}
+
+.sdu-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #059669;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 14px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .transaksi-empty {
-  background: var(--putihCard);
-  border-radius: 20px;
-  box-shadow: var(--shadow-lembut);
-  padding: 60px 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 60px 20px;
   text-align: center;
-  color: var(--textabu);
+  color: #64748b;
 }
 
-.empty-icon {
-  font-size: 38px;
-  color: var(--hijau-light);
-  margin-bottom: 14px;
+.transaksi-empty .empty-icon {
+  font-size: 40px;
+  color: #94a3b8;
+  margin-bottom: 12px;
 }
 
 .transaksi-empty h3 {
-  margin: 0 0 8px 0;
-  color: var(--hijaubtn);
-  font-size: 17px;
+  color: #0f172a;
+  font-size: 18px;
   font-weight: 800;
+  margin: 0 0 6px 0;
 }
 
 .transaksi-empty p {
+  color: #64748b;
+  font-size: 14px;
   margin: 0;
+}
+
+/* ========================================================
+   ADMIN TRANSACTION TABLE STYLES
+   ======================================================== */
+
+.sdu-admin-table-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+}
+
+.sdu-admin-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sdu-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.sdu-admin-table th {
+  padding: 14px 18px;
+  background: #f8fafc;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.sdu-admin-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
   font-size: 13px;
+  color: #1e293b;
 }
 
-/* =======================
-   GRID
-======================= */
-
-.admin-transaksi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 20px;
+.sdu-admin-table tr:last-child td {
+  border-bottom: none;
 }
 
-/* =======================
-   RESPONSIVE
-======================= */
+.sdu-admin-table tr:hover td {
+  background: #f8fafc;
+}
 
-@media (max-width: 992px) {
-  .admin-content {
-    padding: 22px 18px 32px 18px;
-  }
+.sdu-adm-code {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+}
 
-  .admin-page-header {
-    padding: 20px;
-  }
+.sdu-adm-time {
+  font-size: 11px;
+  color: #64748b;
+  display: block;
+  margin-top: 2px;
+}
 
-  .admin-transaksi-grid {
+.sdu-adm-warga {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sdu-adm-phone {
+  font-size: 11px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.sdu-adm-kat {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sdu-adm-note {
+  font-size: 11px;
+  color: #94a3b8;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.sdu-adm-loc {
+  font-size: 12px;
+  color: #475569;
+  display: block;
+}
+
+.sdu-adm-weight {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sdu-adm-gr {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.sdu-adm-nominal {
+  font-size: 14px;
+  font-weight: 800;
+  color: #006241;
+}
+
+.sdu-adm-btn-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #006241;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-adm-btn-detail:hover {
+  background: #004d34;
+  transform: translateY(-1px);
+}
+
+/* Modal Specific Admin Extensions */
+.sdu-detail-popup-card.admin-mode {
+  max-width: 580px;
+}
+
+.sdu-admin-status-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sdu-admin-warga-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.sdu-warga-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sdu-warga-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sdu-warga-name-row strong {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sdu-btn-wa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-wa-chip:hover {
+  background: #1eb855;
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sdu-admin-trx-grid {
     grid-template-columns: 1fr;
   }
-}
-
-@media (max-width: 576px) {
-  .admin-page-header {
+  .sdu-dispatch-alert-banner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-  }
-
-  .admin-transaksi-title {
-    font-size: 18px;
   }
 }

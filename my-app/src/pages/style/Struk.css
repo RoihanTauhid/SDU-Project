@@ -1,0 +1,483 @@
+/* ========================================================
+   SDU STRUK TRANSAKSI CSS
+   ======================================================== */
+
+.sdu-struk-page {
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.sdu-struk-main {
+  flex: 1;
+  padding: 36px 20px 60px 20px;
+}
+
+.sdu-struk-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.sdu-struk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.sdu-struk-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ecfdf5;
+  color: #006241;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #a7f3d0;
+  margin-bottom: 12px;
+}
+
+.sdu-struk-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  margin: 0 0 8px 0;
+}
+
+.sdu-struk-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.sdu-struk-summary-chips {
+  display: flex;
+  gap: 14px;
+}
+
+.sdu-struk-kpi {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.sdu-kpi-lbl {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+}
+
+.sdu-kpi-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sdu-kpi-val.green {
+  color: #006241;
+}
+
+.sdu-kpi-val.emerald {
+  color: #059669;
+}
+
+/* Filter Bar */
+.sdu-struk-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.sdu-struk-search-box {
+  position: relative;
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  align-items: center;
+}
+
+.sdu-struk-search-box svg {
+  position: absolute;
+  left: 16px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.sdu-struk-search-box input {
+  width: 100%;
+  padding: 12px 42px 12px 44px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 0.9rem;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+.sdu-struk-search-box input:focus {
+  border-color: #006241;
+  box-shadow: 0 0 0 3px rgba(0, 98, 65, 0.12);
+}
+
+.sdu-clear-search {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.sdu-clear-search:hover {
+  color: #0f172a;
+}
+
+.sdu-struk-status-tabs {
+  display: flex;
+  background: #e2e8f0;
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+}
+
+.sdu-tab-btn {
+  padding: 8px 16px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-tab-btn.active {
+  background: #ffffff;
+  color: #006241;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+/* Table Card */
+.sdu-struk-table-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+}
+
+.sdu-struk-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sdu-struk-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.sdu-struk-table th {
+  padding: 16px 20px;
+  background: #f8fafc;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.sdu-struk-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+  font-size: 0.88rem;
+  color: #1e293b;
+}
+
+.sdu-struk-table tr:last-child td {
+  border-bottom: none;
+}
+
+.sdu-struk-table tr:hover td {
+  background: #fcfdfd;
+}
+
+.sdu-struk-code-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.sdu-icon-code {
+  color: #006241;
+  font-size: 0.88rem;
+}
+
+.sdu-struk-code {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+}
+
+.sdu-struk-date {
+  font-size: 0.78rem;
+  color: #64748b;
+  display: block;
+}
+
+.sdu-struk-kat {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sdu-struk-loc-sub {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.sdu-struk-weight {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sdu-struk-gr {
+  display: block;
+  font-size: 0.74rem;
+  color: #94a3b8;
+}
+
+.sdu-struk-nominal {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #006241;
+}
+
+.sdu-struk-method {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.sdu-btn-view-struk {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #006241;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 15px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-view-struk:hover {
+  background: #004d34;
+  transform: translateY(-1px);
+}
+
+/* Empty State */
+.sdu-struk-empty {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px dashed #cbd5e1;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.sdu-struk-empty .sdu-empty-icon {
+  font-size: 3rem;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.sdu-struk-empty h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.sdu-struk-empty p {
+  color: #64748b;
+  max-width: 480px;
+  margin: 0 auto 20px auto;
+  line-height: 1.5;
+}
+
+.sdu-struk-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+
+.sdu-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #006241;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Modal Citizen Info Box */
+.sdu-slip-citizen-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.sdu-citizen-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.82rem;
+}
+
+.sdu-citizen-field.full {
+  grid-column: span 2;
+}
+
+.sdu-citizen-field span {
+  color: #475569;
+}
+
+.sdu-citizen-field strong {
+  color: #0f172a;
+}
+
+.sdu-slip-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+}
+
+.sdu-slip-table th {
+  padding: 8px 10px;
+  background: #f1f5f9;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #64748b;
+  border-bottom: 1px solid #cbd5e1;
+  text-transform: uppercase;
+}
+
+.sdu-slip-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.sdu-slip-subdesc {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.sdu-slip-auth-note {
+  margin-top: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  color: #166534;
+  line-height: 1.4;
+}
+
+.sdu-slip-auth-note svg {
+  margin-top: 2px;
+  color: #16a34a;
+}
+
+.sdu-btn-primary-slip {
+  background: #006241;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-primary-slip:hover {
+  background: #004d34;
+}
+
+/* Print CSS */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .sdu-slip-overlay,
+  .sdu-slip-overlay * {
+    visibility: visible;
+  }
+  .sdu-slip-overlay {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    padding: 0;
+  }
+  .sdu-slip-modal {
+    box-shadow: none;
+    border: 1px solid #cbd5e1;
+    max-width: 100%;
+  }
+  .sdu-slip-close,
+  .sdu-slip-footer,
+  header {
+    display: none !important;
+  }
+}

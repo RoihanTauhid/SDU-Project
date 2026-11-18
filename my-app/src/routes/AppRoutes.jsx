@@ -16,6 +16,7 @@ import AdminRoute from "../components/AdminRoute";
 import AdminUser from "../pages/admin/AdminUser";
 import AdminUserDetail from "../pages/admin/AdminUserDetail";
 import Profil from "../pages/Profil";
+import Struk from "../pages/Struk";
 import AdminProfil from "../pages/admin/AdminProfil";
 
 function AppRoutes() {
@@ -56,6 +57,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Profil />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/struk"
+        element={
+          <ProtectedRoute>
+            <Struk />
           </ProtectedRoute>
         }
       />

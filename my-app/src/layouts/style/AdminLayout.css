@@ -1,103 +1,265 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --gradasi-hijau: linear-gradient(
-    135deg,
-    #0b3d2e 0%,
-    #1f7a52 55%,
-    #2fa66d 100%
-  );
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
-}
+/* ============================================================
+   SDU ADMIN LAYOUT STYLING
+   Executive, Clean, Dashboard Framework
+============================================================ */
 
-/* ===== LAYOUT DASAR (dipakai semua halaman admin) ===== */
-.admin-layout {
+.sdu-admin-wrapper {
   display: flex;
   min-height: 100vh;
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 
-.admin-content {
+.sdu-admin-main-container {
   flex: 1;
-  padding: 30px 34px 40px 34px;
-  background: var(--body);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   min-height: 100vh;
-  box-sizing: border-box;
-  min-width: 0; /* mencegah konten (misal tabel/grid) mendorong lebar sidebar */
 }
 
-/* ===== HEADER BANNER (dipakai semua halaman admin) ===== */
-.admin-page-header {
+/* ============================================================
+   TOP MICRO-BAR (Match Image 4 & 5)
+============================================================ */
+.sdu-admin-top-microbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.sdu-topbar-left-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sdu-tag-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sdu-tag-badge.brand {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.sdu-tag-badge.neutral {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.sdu-tag-badge.active-live {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.sdu-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+/* Right Actions */
+.sdu-topbar-right-actions {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: var(--gradasi-hijau);
-  padding: 24px 28px;
-  border-radius: 20px;
-  box-shadow: var(--shadow-lembut);
-  margin-bottom: 26px;
 }
 
-.header-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--gold);
-  font-size: 20px;
+.sdu-topbar-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sdu-topbar-search svg {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.sdu-topbar-search input {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  padding: 7px 14px 7px 34px;
+  font-size: 0.82rem;
+  color: #0f172a;
+  width: 260px;
+  transition: all 0.2s ease;
+}
+
+.sdu-topbar-search input:focus {
+  background: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+  width: 300px;
+}
+
+.sdu-topbar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.sdu-topbar-link:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.sdu-topbar-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.95rem;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.sdu-topbar-icon-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.sdu-notif-ping {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  background: #0284c7;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.sdu-topbar-avatar-btn img,
+.sdu-admin-topbar-avatar {
+  width: 34px !important;
+  height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #10b981 !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+
+/* ============================================================
+   ADMIN PAGE BODY & HEADER ROW
+============================================================ */
+.sdu-admin-page-body {
+  padding: 32px 36px 60px 36px;
+  flex: 1;
+}
+
+.sdu-admin-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.sdu-admin-header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.sdu-admin-header-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0284c7;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.sdu-admin-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sdu-admin-header-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.sdu-admin-main-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.sdu-admin-main-subtitle {
+  font-size: 0.92rem;
+  color: #64748b;
+  margin: 6px 0 0 0;
+}
+
+.sdu-admin-header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   flex-shrink: 0;
 }
 
-.admin-page-title {
-  margin: 0;
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 22px;
-}
-
-.admin-page-subtitle {
-  margin: 4px 0 0 0;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 13px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 992px) {
-  .admin-content {
-    padding: 22px 18px 32px 18px;
+/* Responsive */
+@media (max-width: 900px) {
+  .sdu-admin-top-microbar {
+    padding: 10px 16px;
   }
-
-  .admin-page-header {
-    padding: 20px;
+  .sdu-topbar-search {
+    display: none;
   }
-}
-
-@media (max-width: 768px) {
-  .admin-layout {
-    flex-direction: column;
+  .sdu-admin-page-body {
+    padding: 20px 16px 40px 16px;
   }
-
-  .admin-content {
-    width: 100%;
-  }
-}
-
-@media (max-width: 576px) {
-  .admin-page-header {
+  .sdu-admin-header-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-  }
-
-  .admin-page-title {
-    font-size: 18px;
   }
 }

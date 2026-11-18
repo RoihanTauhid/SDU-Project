@@ -1,6 +1,6 @@
-import "./style/AdminDashboard.css";
+import React, { useState, useEffect } from "react";
 import AdminLayout from "../../layouts/AdminLayout";
-import { useState, useEffect } from "react";
+import "./style/AdminDashboard.css";
 import StatusDataComponent from "./components/StatusDataComponent";
 import {
   getTotalTransaksi,
@@ -13,15 +13,23 @@ import CardTotalTransaksi from "./components/CardTotalTransaksi";
 import CardGrafik from "./components/CardGrafik";
 import TransaksiTerbaru from "./components/TransaksiTerbaru";
 import UserTerbaru from "./components/UserTerbaru";
-import { faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
-import { faReceipt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBolt,
+  faPlus,
+  faTruckFast,
+  faArrowRight,
+  faClockRotateLeft,
+  faShieldHalved,
+} from "@fortawesome/free-solid-svg-icons";
 
 function AdminDashboard() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user")) || { nama: "Admin" };
 
   const [dashboard, setDashboard] = useState({
     totalUser: 0,
+    pendingVerifikasi: 0,
     totalTransaksi: 0,
     totalBerat: 0,
     totalPendapatan: 0,
@@ -29,52 +37,83 @@ function AdminDashboard() {
 
   const [transaksiTerbaru, setTransaksiTerbaru] = useState([]);
   const [userTerbaru, setUserTerbaru] = useState([]);
-  const [statusData, setStatusData] = useState([]);
 
   useEffect(() => {
     const loadData = async () => {
-      const dataDashboard = await getTotalTransaksi(setDashboard);
-      setDashboard(dataDashboard);
+      try {
+        const dataDashboard = await getTotalTransaksi(setDashboard);
+        if (dataDashboard) setDashboard(dataDashboard);
 
-      const dataStatus = await getStatusDataDashboard();
+        const dataTerbaru = await getTransaksiTerbaru(setTransaksiTerbaru);
+        if (Array.isArray(dataTerbaru)) setTransaksiTerbaru(dataTerbaru);
 
-      const statusResult = {
-        Menunggu: 0,
-        Diproses: 0,
-        Dijemput: 0,
-        Selesai: 0,
-      };
-
-      dataStatus.forEach((item) => {
-        statusResult[item.status] = item.total;
-      });
-      setStatusData(statusResult);
-
-      const dataTerbaru = await getTransaksiTerbaru(setTransaksiTerbaru);
-      setTransaksiTerbaru(dataTerbaru);
-
-      const dataUserTerbaru = await getUserTerbaru(setUserTerbaru);
-      setUserTerbaru(dataUserTerbaru);
+        const dataUserTerbaru = await getUserTerbaru(setUserTerbaru);
+        if (Array.isArray(dataUserTerbaru)) setUserTerbaru(dataUserTerbaru);
+      } catch (err) {
+        console.error("Error loading dashboard data:", err);
+      }
     };
 
     loadData();
   }, []);
 
+  // Quick Action Buttons on header right
+  const headerRight = (
+    <div className="sdu-admin-header-actions-group">
+      <Link to="/admin/transaksi" className="sdu-btn-header-solid">
+        <FontAwesomeIcon icon={faTruckFast} />
+        <span>Kelola Penjemputan</span>
+      </Link>
+    </div>
+  );
+
   return (
     <AdminLayout
-      icon={faGaugeHigh}
-      title="Dashboard Admin"
-      subtitle={`Selamat datang, ${user.nama} 👋`}
+      eyebrow="PANEL OPERASIONAL PUSAT • Ringkasan Kinerja Depo"
+      title={`Selamat Datang, ${user.nama} 👋`}
+      subtitle="Pantau volume transaksi daur ulang, pergerakan armada penjemputan, dan distribusi saldo warga hari ini."
+      rightActions={headerRight}
     >
-      <CardTotalTransaksi dashboard={dashboard} />
-      <StatusDataComponent />
+      <div className="sdu-admin-dashboard-body">
+        {Number(dashboard.pendingVerifikasi) > 0 && (
+          <div className="sdu-dash-verif-banner">
+            <div className="sdu-dash-verif-left">
+              <div className="sdu-dash-verif-icon">
+                <FontAwesomeIcon icon={faShieldHalved} />
+              </div>
+              <div>
+                <strong>
+                  {dashboard.pendingVerifikasi} Akun Warga Baru Menunggu
+                  Verifikasi KTP
+                </strong>
+                <span>
+                  Periksa kesesuaian nama, NIK, dan foto KTP pendaftar agar mereka
+                  dapat login dan menyetor sampah.
+                </span>
+              </div>
+            </div>
+            <Link to="/admin/user" className="sdu-dash-verif-btn">
+              <span>Periksa & Verifikasi</span>
+              <FontAwesomeIcon icon={faArrowRight} />
+            </Link>
+          </div>
+        )}
 
-      <div className="dashboard-bottom">
-        <TransaksiTerbaru transactions={transaksiTerbaru} />
-        <UserTerbaru userTerbaru={userTerbaru} />
+        {/* 1. 4 Primary KPI Summary Cards */}
+        <CardTotalTransaksi dashboard={dashboard} />
+
+        {/* 2. Operational Pipeline Status Tiles */}
+        <StatusDataComponent />
+
+        {/* 3. 2-Column Split: Transaksi Terkini & User Terdaftar */}
+        <div className="sdu-dashboard-split-grid">
+          <TransaksiTerbaru transactions={transaksiTerbaru} />
+          <UserTerbaru userTerbaru={userTerbaru} />
+        </div>
+
+        {/* 4. Interactive Analytical Charts */}
+        <CardGrafik />
       </div>
-
-      <CardGrafik />
     </AdminLayout>
   );
 }

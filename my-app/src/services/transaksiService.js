@@ -1,5 +1,4 @@
-const API_URL = "https://sdu-project.web.id/api/";
-const API_URL_local = "http://localhost:5000/";
+import { API_URL } from "../config/api";
 
 // ==========================
 // AdminTransaksi.jsx
@@ -104,11 +103,12 @@ export async function createTransaksi(transaksiBaru) {
     },
     body: JSON.stringify(transaksiBaru),
   });
+  const data = await response.json();
   if (!response.ok) {
-    throw new Error("Gagal mengambil data transaksi");
+    throw new Error(data.message || "Gagal menyimpan transaksi");
   }
 
-  return response.json();
+  return data;
 }
 
 export async function uploadFoto(formData) {
@@ -168,4 +168,26 @@ export async function getStatistikLandingPage() {
   }
 
   return response.json();
+}
+
+export async function getStatusTransaksiUser() {
+  const response = await fetch(`${API_URL}admin/status-transaksi`);
+
+  if (!response.ok) {
+    throw new Error("Gagal Mengambil Data Status Transaksi");
+  }
+
+  const data = await response.json();
+  const statusResult = {
+    Menunggu: 0,
+    Diproses: 0,
+    Dijemput: 0,
+    Selesai: 0,
+  };
+
+  data.forEach((item) => {
+    statusResult[item.status] = item.total;
+  });
+
+  return statusResult;
 }

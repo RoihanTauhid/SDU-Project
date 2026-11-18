@@ -1,216 +1,704 @@
-:root {
-  --lightgreen: #859f3d;
-  --darkgreen: #31511e;
-  --cream: #f6fcdf;
-  --putih: #efefef;
-}
+/* ==========================================================
+   ADMIN USER DETAIL PAGE STYLES
+========================================================== */
 
-.admin-user-detail-content {
-  flex: 1;
-  padding: 25px;
-  background: var(--putih);
-  min-height: 100vh;
-}
-
-.admin-user-detail-content h1 {
-  color: var(--darkgreen);
-  margin-bottom: 20px;
-}
-
-/* =========================
-   PROFILE CARD
-========================= */
-
-.user-detail-card {
-  background: white;
-  padding: 24px;
-  border-radius: 16px;
-  margin-bottom: 25px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.user-profile-section {
+.sdu-admin-user-detail-body {
   display: flex;
-  gap: 24px;
-  align-items: center;
-}
-
-.user-profile-img {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--lightgreen);
-}
-
-.user-profile-placeholder {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  background: var(--cream);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 52px;
-}
-
-.user-profile-info {
-  flex: 1;
-}
-
-.user-profile-info h2 {
-  margin-bottom: 10px;
-  color: var(--darkgreen);
-}
-
-.user-profile-info p {
-  margin: 8px 0;
-  color: #555;
-}
-
-/* =========================
-   SUMMARY
-========================= */
-
-.user-summary {
-  margin-top: 25px;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 15px;
-}
-
-.summary-item {
-  background: var(--cream);
-  border-radius: 12px;
-  padding: 15px;
-  text-align: center;
-}
-
-.summary-item span {
-  display: block;
-  color: #666;
-  font-size: 13px;
-}
-
-.summary-item strong {
-  display: block;
-  margin-top: 5px;
-  font-size: 18px;
-  color: var(--darkgreen);
-}
-
-/* =========================
-   RIWAYAT
-========================= */
-
-.riwayat-title {
-  margin-bottom: 15px;
-  color: var(--darkgreen);
-}
-
-.riwayat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  flex-direction: column;
   gap: 20px;
 }
 
-.riwayat-card {
-  background: white;
+/* Top Profile Card */
+.sdu-citizen-profile-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
-  padding: 18px;
-  border: 1px solid #ddd;
-  box-shadow: 0px 2px 8px rgba(49, 81, 30, 0.2);
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  flex-wrap: wrap;
 }
 
-.riwayat-card h3 {
-  margin-top: 0;
-  color: var(--darkgreen);
+.sdu-citizen-avatar-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #0f3e2e;
+  flex-shrink: 0;
 }
 
-.riwayat-card p {
-  margin: 8px 0;
-  color: #555;
-}
-
-.detail-foto-sampah {
+.sdu-citizen-img {
   width: 100%;
-  height: 220px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 15px;
 }
 
-/* =========================
-   STATUS
-========================= */
-
-.status-badge {
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
+.sdu-citizen-initial {
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
 }
 
-.status-badge.menunggu {
-  background: #fff3cd;
-  color: #856404;
+.sdu-citizen-profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.status-badge.diproses {
-  background: #d1ecf1;
-  color: #0c5460;
+.sdu-citizen-headline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.status-badge.dijemput {
-  background: #d4edda;
-  color: #155724;
+.sdu-citizen-headline h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
 }
 
-.status-badge.selesai {
-  background: #c8f7c5;
-  color: #1e7e34;
-}
 
-/* =========================
-   BUTTON
-========================= */
+  .sdu-verif-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 9999px;
+  }
 
-.btn-lokasi-detail {
-  margin-top: 10px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  background: var(--cream);
-  color: var(--darkgreen);
-  box-shadow: 0px 2px 6px rgba(49, 81, 30, 0.2);
-}
+  .sdu-verif-pill.pending {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+  }
 
-.btn-lokasi-detail:hover,
-.btn-wa:hover {
-  opacity: 0.9;
-}
+  .sdu-verif-pill.verified {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+  }
 
-/* =========================
-   RESPONSIVE
-========================= */
+  .sdu-verif-pill.rejected {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+  }
 
-@media (max-width: 768px) {
-  .user-profile-section {
+  /* KTP Verification Panel */
+  .sdu-ktp-verif-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
     flex-direction: column;
+    gap: 18px;
+  }
+
+  .sdu-ktp-verif-panel.pending {
+    border-color: #fcd34d;
+    background: linear-gradient(180deg, #fffdf5 0%, #ffffff 60%);
+  }
+
+  .sdu-ktp-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .sdu-ktp-title-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .sdu-ktp-shield {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .sdu-ktp-shield.pending {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  .sdu-ktp-shield.verified {
+    background: #d1fae5;
+    color: #059669;
+  }
+
+  .sdu-ktp-shield.rejected {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
+  .sdu-ktp-title-wrap h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+  }
+
+  .sdu-ktp-title-wrap p {
+    font-size: 12.5px;
+    color: #64748b;
+    margin: 0;
+  }
+
+  .sdu-ktp-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .sdu-btn-approve-verif {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #059669;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 10px 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+  }
+
+  .sdu-btn-approve-verif:hover:not(:disabled) {
+    background: #047857;
+  }
+
+  .sdu-btn-reject-verif {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 10px 16px;
+    border-radius: 10px;
+  }
+
+  .sdu-btn-reject-verif:hover:not(:disabled) {
+    background: #fee2e2;
+  }
+
+  /* Reject Box */
+  .sdu-reject-reason-box {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sdu-reject-reason-box label {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: #991b1b;
+  }
+
+  .sdu-quick-reason-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .sdu-reason-chip {
+    background: #ffffff;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 9999px;
+  }
+
+  .sdu-reason-chip:hover {
+    background: #fee2e2;
+  }
+
+  .sdu-reject-reason-box textarea {
+    width: 100%;
+    border: 1px solid #fca5a5;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    background: #ffffff;
+    resize: vertical;
+  }
+
+  .sdu-reject-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .sdu-btn-cancel-reject {
+    background: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+
+  .sdu-btn-confirm-reject {
+    background: #dc2626;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 800;
+  }
+
+  .sdu-rejected-note-banner {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+  }
+
+  /* Comparison Grid: Formal Data vs KTP Image */
+  .sdu-ktp-compare-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 18px;
+  }
+
+  .sdu-formal-data-card,
+  .sdu-ktp-preview-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+
+  .sdu-formal-data-card h4,
+  .sdu-ktp-preview-header h4 {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 12px 0;
+  }
+
+  .sdu-formal-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .sdu-formal-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .sdu-formal-item.highlight {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+  }
+
+  .sdu-formal-item.full {
+    grid-column: 1 / -1;
+  }
+
+  .sdu-formal-item span {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .sdu-formal-item strong {
+    font-size: 13.5px;
+    color: #0f172a;
+    word-break: break-word;
+  }
+
+  .sdu-ktp-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .sdu-ktp-preview-header h4 {
+    margin: 0;
+  }
+
+  .sdu-btn-zoom-ktp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+
+  .sdu-ktp-image-frame {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+    background: #0f172a;
+    height: 220px;
+    cursor: zoom-in;
+  }
+
+  .sdu-ktp-image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .sdu-ktp-empty {
+    height: 220px;
+    border: 1.5px dashed #cbd5e1;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 12.5px;
+  }
+
+  .sdu-ktp-empty svg {
+    font-size: 28px;
+  }
+
+  /* KTP Lightbox Modal */
+  .sdu-ktp-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 3000;
+  }
+
+  .sdu-ktp-lightbox-inner {
+    background: #ffffff;
+    border-radius: 16px;
+    max-width: 820px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  .sdu-ktp-lightbox-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 13.5px;
+  }
+
+  .sdu-ktp-lightbox-bar button {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sdu-ktp-lightbox-inner img {
+    width: 100%;
+    max-height: 76vh;
+    object-fit: contain;
+    background: #0f172a;
+  }
+
+  .sdu-citizen-meta-list {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .sdu-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sdu-meta-item svg {
+    color: #94a3b8;
+    font-size: 12px;
+  }
+
+  .sdu-btn-wa-direct {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0f3e2e;
+    color: #ffffff;
+    border: 1px solid #0f3e2e;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .sdu-btn-wa-direct:hover {
+    background: #17543f;
+  }
+
+  /* 3 Stat Cards */
+  .sdu-user-stats-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .sdu-user-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sdu-stat-sub {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #64748b;
+  }
+
+  .sdu-stat-val {
+    font-size: 20px;
+    font-weight: 900;
+    color: #0f172a;
+  }
+
+  .sdu-stat-val.green {
+    color: #059669;
+  }
+
+  .sdu-stat-val.blue {
+    color: #2563eb;
+  }
+
+  /* History Card */
+  .sdu-user-trx-history-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+
+  .sdu-history-card-header {
+    margin-bottom: 16px;
+  }
+
+  .sdu-history-card-header h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .sdu-history-sub {
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  .sdu-user-trx-table-wrap {
+    overflow-x: auto;
+  }
+
+  .sdu-user-trx-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13px;
+  }
+
+  .sdu-user-trx-table th {
+    padding: 10px 14px;
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 11.5px;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+  }
+
+  .sdu-user-trx-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: middle;
+  }
+
+  .sdu-t-time {
+    font-size: 11.5px;
+    color: #94a3b8;
+  }
+
+  .sdu-t-desc {
+    font-size: 11.5px;
+    color: #64748b;
+    font-style: italic;
+  }
+
+  .sdu-payout-text {
+    color: #059669;
+    font-weight: 800;
+  }
+
+  .sdu-loc-text {
+    font-size: 12px;
+    max-width: 200px;
+    color: #475569;
+  }
+
+  .sdu-btn-table-map {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .sdu-btn-table-map:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+  }
+
+  .sdu-user-detail-loading {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 60px 20px;
     text-align: center;
+    color: #64748b;
   }
 
-  .user-summary {
-    grid-template-columns: 1fr;
+  .sdu-btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 9px;
+    background: #0f3e2e;
+    color: #ffffff;
+    border: none;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 14px;
   }
 
-  .riwayat-grid {
-    grid-template-columns: 1fr;
+  .sdu-trx-empty-inline {
+    padding: 30px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
   }
-}
+
+  .sdu-item-status-pill {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 9999px;
+    display: inline-block;
+  }
+
+  .sdu-item-status-pill.menunggu {
+    background: #e0f2fe;
+    color: #0284c7;
+  }
+
+  .sdu-item-status-pill.diproses {
+    background: #e0e7ff;
+    color: #4338ca;
+  }
+
+  .sdu-item-status-pill.dijemput {
+    background: #fef3c7;
+    color: #b45309;
+  }
+
+  .sdu-item-status-pill.selesai {
+    background: #d1fae5;
+    color: #047857;
+  }
+
+  @media (max-width: 960px) {
+    .sdu-ktp-compare-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+      .sdu-user-stats-summary-grid,
+      .sdu-formal-list {
+        grid-template-columns: 1fr;
+      }
+    }

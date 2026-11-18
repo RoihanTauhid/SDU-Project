@@ -1,35 +1,73 @@
-:root {
-  --lightgreen: #859f3d;
-  --darkgreen: #31511e;
-  --cream: #f6fcdf;
-  --putih: #efefef;
-}
-
-.status {
-  outline: none;
+.sdu-status-dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 4px 12px;
+  transition: all 0.2s ease;
   cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.sdu-status-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  cursor: pointer;
+  padding-right: 14px;
 }
 
-.status.menunggu {
-  background: #fff3cd;
-  color: #856404;
+.sdu-select-chevron {
+  position: absolute;
+  right: 8px;
+  font-size: 11px;
+  pointer-events: none;
 }
 
-.status.diproses {
-  background: #d1ecf1;
-  color: #0c5460;
+/* Status variants matching Reference Image 4 */
+.sdu-status-dropdown-wrapper.menunggu {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+.sdu-status-dropdown-wrapper.menunggu .sdu-status-select {
+  color: #475569;
 }
 
-.status.dijemput {
-  background: #d4edda;
-  color: #155724;
+.sdu-status-dropdown-wrapper.diproses {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+.sdu-status-dropdown-wrapper.diproses .sdu-status-select {
+  color: #1d4ed8;
 }
 
-.status.selesai {
-  background: #c8f7c5;
-  color: #1e7e34;
+.sdu-status-dropdown-wrapper.dijemput {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+.sdu-status-dropdown-wrapper.dijemput .sdu-status-select {
+  color: #b45309;
+}
+
+.sdu-status-dropdown-wrapper.selesai {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+.sdu-status-dropdown-wrapper.selesai .sdu-status-select {
+  color: #047857;
+}
+
+.sdu-status-dropdown-wrapper:hover {
+  filter: brightness(0.96);
 }

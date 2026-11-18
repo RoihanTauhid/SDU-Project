@@ -1,96 +1,178 @@
--- sdu_db.sql - versi yang sudah diperbaiki untuk Aiven MySQL
--- Primary key sudah dipindahkan ke dalam CREATE TABLE
+-- MySQL dump 10.13  Distrib 26.7.0, for macos26.6 (arm64)
+--
+-- Host: localhost    Database: sdu_db
+-- ------------------------------------------------------
+-- Server version	26.7.0
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- --------------------------------------------------------
+--
 -- Table structure for table `harga_sampah`
--- --------------------------------------------------------
+--
 
+DROP TABLE IF EXISTS `harga_sampah`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `harga_sampah` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kategori` varchar(100) NOT NULL,
-  `harga` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `kategori` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `harga` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci AUTO_INCREMENT=7;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `harga_sampah` (`id`, `kategori`, `harga`) VALUES
-(1, 'plastik', 250),
-(2, 'kardus', 250),
-(3, 'botol', 700),
-(4, 'kaleng', 500),
-(5, 'Besi', 1000),
-(6, 'pecah_belah', 600);
+--
+-- Dumping data for table `harga_sampah`
+--
 
--- --------------------------------------------------------
+LOCK TABLES `harga_sampah` WRITE;
+/*!40000 ALTER TABLE `harga_sampah` DISABLE KEYS */;
+INSERT INTO `harga_sampah` VALUES (1,'plastik',250),(2,'kardus',250),(3,'botol',700),(4,'kaleng',500),(5,'Besi',1000),(6,'pecah_belah',600);
+/*!40000 ALTER TABLE `harga_sampah` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `log_harga`
+--
+
+DROP TABLE IF EXISTS `log_harga`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `log_harga` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `kategori` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `harga_lama` int NOT NULL,
+  `harga_baru` int NOT NULL,
+  `diubah_oleh` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'Admin Operasional',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log_harga`
+--
+
+LOCK TABLES `log_harga` WRITE;
+/*!40000 ALTER TABLE `log_harga` DISABLE KEYS */;
+/*!40000 ALTER TABLE `log_harga` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `target_bonus`
+--
+
+DROP TABLE IF EXISTS `target_bonus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `target_bonus` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `min_berat` int DEFAULT '20',
+  `bonus` int DEFAULT '5000',
+  `is_active` tinyint(1) DEFAULT '1',
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `target_bonus`
+--
+
+LOCK TABLES `target_bonus` WRITE;
+/*!40000 ALTER TABLE `target_bonus` DISABLE KEYS */;
+INSERT INTO `target_bonus` VALUES (1,20,5000,1,'2026-11-15 10:44:52');
+/*!40000 ALTER TABLE `target_bonus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `transaksi`
--- --------------------------------------------------------
+--
 
+DROP TABLE IF EXISTS `transaksi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `transaksi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `kategori` varchar(100) NOT NULL,
-  `keterangan` text NOT NULL,
-  `berat` int(11) NOT NULL,
-  `lokasi` varchar(255) NOT NULL,
-  `harga100gr` int(11) NOT NULL,
-  `totalharga` int(11) NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `kategori` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `keterangan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `berat` int NOT NULL,
+  `lokasi` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `harga100gr` int NOT NULL,
+  `totalharga` int NOT NULL,
+  `bonus` int DEFAULT '0',
+  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `latitude` decimal(10,8) DEFAULT NULL,
   `longitude` decimal(11,8) DEFAULT NULL,
-  `foto` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci AUTO_INCREMENT=29;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `transaksi` (`id`, `user_id`, `kategori`, `keterangan`, `berat`, `lokasi`, `harga100gr`, `totalharga`, `status`, `created_at`, `latitude`, `longitude`, `foto`) VALUES
-(1, 0, 'Besi', 'Besi Pagar', 15000, 'Lubeg', 500, 75000, '', '2026-06-17 18:20:35', 0.00000000, 0.00000000, ''),
-(2, 0, 'Kaleng', 'Kaleng Bekas', 10000, 'Jati', 700, 70000, '', '2026-06-17 18:20:35', 0.00000000, 0.00000000, ''),
-(3, 6, 'Besi', 'Besi trali jendela', 20000, 'Lubuk begalung', 500, 100000, 'Dijemput', '2026-06-18 09:44:23', 0.00000000, 0.00000000, ''),
-(4, 6, 'Kaleng', 'Kaleng Minuman Lebaran', 3000, 'Khatib Sulaiman', 700, 21000, 'Selesai', '2026-06-18 10:19:56', 0.00000000, 0.00000000, ''),
-(5, 8, 'Karton', 'Karton makanan', 14000, 'Sawahlunto', 200, 28000, 'Selesai', '2026-06-18 09:44:35', 0.00000000, 0.00000000, ''),
-(7, 8, 'Plastik', 'botol minuman', 20000, 'kubang sirakuk', 300, 60000, 'Dijemput', '2026-06-23 02:41:33', 0.00000000, 0.00000000, ''),
-(8, 8, 'kaleng', 'Kaleng minuman', 9000, 'Talawi', 1000, 90000, 'Selesai', '2026-06-19 20:11:59', 0.00000000, 0.00000000, ''),
-(9, 8, 'kaleng', 'Kaleng lebaran', 9000, 'talawi timur', 1000, 90000, 'Selesai', '2026-06-23 02:41:38', 0.00000000, 0.00000000, ''),
-(10, 8, 'kardus', 'kardus indomie', 1000, 'Silungkang', 300, 3000, 'Menunggu', '2026-06-23 02:40:58', 0.00000000, 0.00000000, ''),
-(11, 8, 'kaleng', 'Kaleng Minuman bear brand', 1000, 'silungkang ', 500, 5000, 'Dijemput', '2026-06-23 02:49:50', 0.00000000, 0.00000000, ''),
-(12, 8, 'kardus', 'Kardus mie ayam', 10000, 'Padang Barat', 300, 30000, 'Diproses', '2026-06-25 14:56:28', -0.94708300, 100.41718100, ''),
-(13, 8, 'kaleng', 'Kaleng Lebaran Idul ADHa ', 20000, 'Lubuk Begalung', 500, 100000, 'Selesai', '2026-06-25 17:42:02', -0.95881060, 100.39786836, ''),
-(14, 9, 'kaleng', 'Kaleng KUE', 19900, 'Pangkalan Kerinci ', 500, 99500, 'Dijemput', '2026-06-23 14:27:21', 0.38781088, 101.85906850, ''),
-(15, 9, 'plastik', 'Plastik Asoy', 3000, 'Belakang UPI', 300, 9000, 'Selesai', '2026-06-25 14:40:30', -0.96017180, 100.39586123, '1782292365241-79688752.jpg'),
-(16, 8, 'kardus', 'Kardus Indomie', 10000, 'Kubang Sirakuk atas di depan kelok 16', 250, 25000, 'Diproses', '2026-06-25 14:56:26', -0.94632395, 100.37290689, '1782325505085-803557957.png'),
-(17, 8, 'kaleng', 'Kaleng lebaran', 20000, 'Kubang Sirakuk atas di depan kelok 16', 500, 100000, 'Dijemput', '2026-06-25 17:41:56', 0.39463501, 101.85983281, '1782326416432-82374578.jpeg'),
-(18, 12, 'kaleng', 'Kaleng Minuman', 6500, 'Rusun Sawahlunto Kaliang.net', 500, 32500, 'Selesai', '2026-06-24 19:45:16', 0.39233075, 101.85935030, '1782330123404-322067.jpg'),
-(19, 12, 'plastik', 'Plastik Asoy ', 4000, 'Rusun Sawahlunto Kaliang.net', 300, 12000, 'Dijemput', '2026-06-24 19:45:13', 0.39386867, 101.85982833, '1782330232794-689160191.jpeg'),
-(20, 12, 'kardus', 'Kardus Jajanan', 11000, 'Rusun Sawahlunto Kaliang.net', 250, 27500, 'Selesai', '2026-06-26 20:02:07', 0.39563808, 101.86530176, '1782330268652-474747752.jpeg'),
-(21, 8, 'plastik', 'Plastik Asoy', 4800, 'Kubang Sirakuk atas di depan kelok 16', 300, 14400, 'Diproses', '2026-06-26 20:01:59', 0.45693988, 101.45342641, '1782411416937-542113370.png'),
-(26, 8, 'kaleng', 'Kaleng kue lebaran', 10000, 'Kubang Sirakuk atas di depan kelok 16', 500, 50000, 'Menunggu', '2026-07-09 07:14:23', -1.00005874, 100.36800168, '1783581263369-120020580.png'),
-(27, 8, 'kaleng', 'Kaleng kue lebaran', 10000, 'Kubang Sirakuk atas di depan kelok 16', 500, 50000, 'Menunggu', '2026-07-09 07:14:23', -1.00005874, 100.36800168, '1783581263398-83972769.png'),
-(28, 8, 'plastik', 'asoy', 1900, 'Kubang Sirakuk atas di depan kelok 16', 250, 4750, 'Menunggu', '2026-07-11 16:50:38', -0.92520750, 100.39605661, '1783788638312-927938109.png');
+--
+-- Dumping data for table `transaksi`
+--
 
--- --------------------------------------------------------
+LOCK TABLES `transaksi` WRITE;
+/*!40000 ALTER TABLE `transaksi` DISABLE KEYS */;
+INSERT INTO `transaksi` VALUES (31,17,'botol','Botol kaca minum , sirup , dll nya  [Waktu: Sore Hari 13.00-16.00 WIB]',10000,'Jl.Alhidayah No. 52, disamping pos delima',700,70000,0,'Selesai','2026-11-15 09:27:13',-6.39595068,106.89147402,'1794734505738-428306511.jpeg'),(33,17,'kardus','Kardus indomie ,jajanan , kopi , dllnya  [Waktu: Pagi Hari 09.00-12.00 WIB]',20000,'Jl.Alhidayah No. 52, disamping pos delima',250,55000,5000,'Menunggu','2026-11-15 11:02:17',-6.25551676,106.86555732,'1794740537872-405675496.jpeg');
+/*!40000 ALTER TABLE `transaksi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
--- --------------------------------------------------------
+--
 
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('admin','user') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `alamat` text NOT NULL,
-  `foto_profil` varchar(255) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `nik` varchar(16) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` enum('admin','user') COLLATE utf8mb4_general_ci NOT NULL,
+  `status_verifikasi` enum('pending','verified','rejected') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pending',
+  `catatan_verifikasi` text COLLATE utf8mb4_general_ci,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
+  `foto_profil` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `foto_ktp` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci AUTO_INCREMENT=16;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `user` (`id`, `nama`, `no_hp`, `password`, `role`, `created_at`, `alamat`, `foto_profil`) VALUES
-(6, 'Roihan', '089633698200', 'user', 'user', '2026-06-17 17:13:19', '', ''),
-(7, 'roihan admin', '083808421427', 'admin', 'admin', '2026-06-26 22:09:01', 'Jl.Sutomo Padang', '1782511741553-213434745.jpg'),
-(8, 'jamale', '888888888888', 'jamal', 'user', '2026-07-11 16:52:09', 'Kubang Sirakuk atas di depan kelok 16', '1782417277199-10560471.jpeg'),
-(9, 'Budi', '111111111111', 'budi', 'user', '2026-06-23 13:23:39', '', ''),
-(12, 'Fajar', '222222222222', 'fajar', 'user', '2026-06-24 19:28:11', 'Rusun Sawahlunto Kaliang.net', '1782329291003-5923465.JPG');
+--
+-- Dumping data for table `user`
+--
 
-COMMIT;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (7,'roihan admin',NULL,'admin','083808421427','admin','admin','verified',NULL,'2026-11-10 08:11:29','Jl.Sutomo Padang','1782511741553-213434745.jpg',''),(17,'Roihan Tauhid','1408131311040001','roihan','089633698200','user123','user','verified',NULL,'2026-11-15 09:18:41','Jl.Alhidayah No. 52, disamping pos delima','1794734237950-550317975.jpeg','1794734237953-547277350.jpg');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-11-18 10:54:55

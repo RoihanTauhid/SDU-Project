@@ -1,4 +1,4 @@
-const API_URL = "https://sdu-project.web.id/api/";
+import { API_URL } from "../config/api";
 
 // Halaman Transaksi.jsx
 export async function getAlamatUser(id) {
@@ -64,4 +64,34 @@ export async function getUserAdmin(setUsers) {
   }
 
   return response.json();
+}
+
+// AdminUserDetail
+//======
+
+export async function getUserDetailAdmin(id) {
+  const response = await fetch(`${API_URL}admin/user/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil data user");
+  }
+
+  return response.json();
+}
+
+export async function verifikasiUserAdmin(id, status_verifikasi, catatan_verifikasi = "") {
+  const response = await fetch(`${API_URL}admin/user/${id}/verifikasi`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status_verifikasi, catatan_verifikasi }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || "Gagal memperbarui status verifikasi");
+  }
+
+  return data;
 }

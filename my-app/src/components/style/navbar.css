@@ -1,264 +1,443 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --gradasi-hijau: linear-gradient(
-    135deg,
-    #0b3d2e 0%,
-    #1f7a52 55%,
-    #2fa66d 100%
-  );
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
+/* ============================================================
+   SDU NAVBAR STYLING
+   Clean, Modern, Pill-based Navigation Header
+============================================================ */
+
+.sdu-navbar-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  transition: all 0.25s ease;
 }
 
-nav {
-  width: 100%;
+.sdu-navbar-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 12px 24px;
   display: flex;
-  flex-direction: column;
-  background: var(--gradasi-hijau);
-  padding: 16px 32px 16px 32px;
-  box-sizing: border-box;
-  box-shadow: var(--shadow-lembut);
-  position: relative;
-  z-index: 10;
-}
-
-/* ===== BARIS ATAS ===== */
-.navbar-top {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-bottom: 16px;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.navbar-kiri {
+/* ===== BRAND LOGO ===== */
+.sdu-brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.logo-img {
-  width: 44px;
-  height: 44px;
-  background-color: rgba(255, 255, 255, 0.15);
+.sdu-brand-icon {
+  width: 40px;
+  height: 40px;
+  background: #0f172a;
+  color: #10b981;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  box-sizing: border-box;
-  backdrop-filter: blur(4px);
+  font-size: 1.25rem;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+  transition: transform 0.2s ease;
 }
 
-.logo-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.sdu-brand:hover .sdu-brand-icon {
+  transform: rotate(18deg) scale(1.05);
 }
 
-.navbar-kiri a {
+.sdu-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sdu-brand-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.sdu-brand-subtitle {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===== CENTER NAV PILLS ===== */
+.sdu-nav-pills {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 4px 6px;
+  border-radius: 9999px;
+  gap: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+.sdu-nav-pill {
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #475569;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.sdu-nav-pill:hover {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.sdu-nav-pill.active {
+  background: #0f172a;
   color: #ffffff;
-  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
 }
 
-.navbar-kiri p {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.75);
-  margin: 0;
-}
-
-.navbar-kanan {
+/* ===== RIGHT ACTIONS & USER SECTION ===== */
+.sdu-navbar-actions {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.navbar-kanan div:first-child {
+.sdu-user-section {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.profil-nama {
-  font-weight: 700;
-  font-size: 14px;
-  color: #ffffff;
-}
-
-.navbar-kanan span:last-child {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.profil {
+  align-items: center;
+  gap: 12px;
   position: relative;
 }
 
-.profil img {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-  background-color: #ffffff;
-  border: 2px solid var(--gold);
-}
-
-/* ===== BARIS BAWAH (MENU PILL) ===== */
-.navbar-bottom {
-  background-color: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(6px);
-  border-radius: 20px;
-  padding: 6px 8px;
-}
-
-.nav-links {
-  list-style: none;
+.sdu-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
   display: flex;
-  gap: 4px;
-  margin: 0;
-  padding: 0;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
-.nav-link {
-  display: block;
-  padding: 9px 22px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  transition:
-    background 0.2s,
-    color 0.2s;
+.sdu-icon-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
 }
 
-.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-}
-
-.nav-link.active {
-  background-color: var(--gold);
-  color: #1c2b24;
-}
-
-/* ===== DROPDOWN MENU ===== */
-.menu {
+.sdu-notif-dot {
   position: absolute;
-  top: 54px;
-  right: 0;
-  z-index: 1000;
-  background-color: var(--putihCard);
-  border-radius: 14px;
-  min-width: 180px;
-  box-shadow: var(--shadow-lembut);
+  top: 9px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  background: #0284c7;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+/* Profile Pill */
+.sdu-profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px 4px 4px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s ease;
+  user-select: none;
+  height: 42px;
+  max-height: 42px;
   overflow: hidden;
 }
 
-.menu ul {
+.sdu-profile-pill:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.sdu-nav-avatar,
+.sdu-avatar-img {
+  width: 34px !important;
+  height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #10b981 !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+}
+
+.sdu-profile-info {
   display: flex;
   flex-direction: column;
+  text-align: left;
+}
+
+.sdu-profile-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.sdu-profile-sub {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #64748b;
+  line-height: 1.2;
+}
+
+.sdu-dropdown-arrow {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+}
+
+.sdu-dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu Modal */
+.sdu-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 250px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px -4px rgba(15, 23, 42, 0.12);
   padding: 8px;
+  z-index: 1050;
+  animation: fadeInDown 0.15s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sdu-dropdown-header {
+  padding: 10px 12px;
+}
+
+.sdu-user-full-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
   margin: 0;
-  gap: 2px;
-  list-style: none;
 }
 
-.menu a {
-  text-decoration: none;
-  color: var(--hijaubtn);
+.sdu-user-phone {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 2px 0 6px 0;
 }
 
-.menu li {
-  color: var(--hijaubtn);
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: 10px;
+.sdu-role-badge {
+  display: inline-block;
+  background: #e6f4ea;
+  color: #006241;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.sdu-dropdown-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 6px 0;
+}
+
+.sdu-dropdown-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: background 0.15s;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #334155;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.menu li:hover {
-  background-color: var(--body);
+.sdu-dropdown-item:hover {
+  background: #f8fafc;
+  color: #0f172a;
 }
 
-/* ===== HAMBURGER ===== */
-.hamburger-btn {
-  display: none;
+.sdu-dropdown-item svg {
+  color: #64748b;
+  width: 16px;
+}
+
+.sdu-logout-btn {
+  color: #dc2626 !important;
+}
+
+.sdu-logout-btn svg {
+  color: #dc2626 !important;
+}
+
+.sdu-logout-btn:hover {
+  background: #fef2f2 !important;
+}
+
+/* Guest Auth Buttons */
+.sdu-auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sdu-btn-outline {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  background: rgba(255, 255, 255, 0.12);
-  border: none;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  font-size: 0.88rem;
+  font-weight: 600;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-outline:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.sdu-btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-solid:hover {
+  background: #006241;
+  box-shadow: 0 6px 14px rgba(0, 98, 65, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Mobile Hamburger Button */
+.sdu-hamburger-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
-  cursor: pointer;
-  padding: 0;
-  font-size: 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+/* Mobile Menu Drawer */
+.sdu-mobile-menu {
+  display: none;
+  background: #ffffff;
+  border-top: 1px solid #f1f5f9;
+  padding: 16px 20px 24px;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.sdu-mobile-link {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+}
+
+.sdu-mobile-link.active {
+  background: #0f172a;
   color: #ffffff;
 }
 
-@media screen and (min-width: 768px) and (max-width: 991px) {
+.sdu-mobile-auth {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e2e8f0;
 }
 
-@media screen and (min-width: 576px) and (max-width: 767px) {
+.sdu-mobile-auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-@media (max-width: 576px) {
-  nav {
-    padding: 12px 16px;
+.w-full {
+  width: 100%;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 960px) {
+  .sdu-nav-pills {
+    display: none;
   }
-
-  .hamburger-btn {
+  .sdu-hamburger-btn {
     display: flex;
   }
+  .sdu-mobile-menu {
+    display: flex;
+  }
+}
 
-  .navbar-kanan > div:first-child {
+@media (max-width: 540px) {
+  .sdu-profile-info {
     display: none;
   }
-
-  .navbar-bottom {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0;
-    transition:
-      max-height 0.3s ease,
-      padding 0.3s ease;
-    border-radius: 16px;
-    margin-top: 0;
-  }
-
-  .navbar-bottom.mobile-open {
-    max-height: 300px;
-    padding: 10px 8px;
-    margin-top: 10px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .nav-link {
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-  }
-
-  .logo-desc {
-    display: none;
+  .sdu-profile-pill {
+    padding: 3px;
   }
 }

@@ -1,165 +1,185 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./style/AdminSidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHouse,
+  faRecycle,
+  faGaugeHigh,
   faCashRegister,
   faTag,
-  faUser,
   faUsers,
   faArrowRightFromBracket,
-  faLeaf,
-  faChevronDown,
+  faUserGear,
   faBars,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Ellipse from "../../../assets/Ellipse 395.png";
+import { getUploadUrl, API_URL } from "../../../config/api";
 
 function AdminSidebar() {
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const admin = JSON.parse(localStorage.getItem("user"));
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [pendingTrx, setPendingTrx] = useState(0);
+  const [pendingUsers, setPendingUsers] = useState(0);
+  const admin = JSON.parse(localStorage.getItem("user")) || {};
   const navigate = useNavigate();
 
-  const toogleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const toogleMobile = () => {
-    setMobileOpen(!mobileOpen);
-    setMenuOpen(false);
-  };
+  useEffect(() => {
+    const loadBadges = async () => {
+      try {
+        const [dashRes, statusRes] = await Promise.all([
+          fetch(`${API_URL}admin/dashboard`).then((r) => r.json()).catch(() => null),
+          fetch(`${API_URL}admin/status-transaksi`).then((r) => r.json()).catch(() => []),
+        ]);
+        if (dashRes && dashRes.pendingVerifikasi !== undefined) {
+          setPendingUsers(Number(dashRes.pendingVerifikasi) || 0);
+        }
+        if (Array.isArray(statusRes)) {
+          const waiting = statusRes.find(
+            (s) => s.status?.toLowerCase() === "menunggu"
+          );
+          setPendingTrx(Number(waiting?.total) || 0);
+        }
+      } catch (err) {
+        console.error("Failed loading sidebar badges:", err);
+      }
+    };
+    loadBadges();
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    setMenuOpen(false);
-    setMobileOpen(false);
     navigate("/login");
   };
 
   return (
-    <div className="admin-sidebar">
-      {/* ===== TOP BAR (khusus mobile) ===== */}
-      <div className="sidebar-topbar-mobile">
-        <div className="sidebar-brand sidebar-brand-mobile">
-          <div className="brand-icon">
-            <FontAwesomeIcon icon={faLeaf} />
+    <>
+      {/* Mobile Sticky Toggle Header */}
+      <div className="sdu-admin-mobile-bar">
+        <div className="sdu-admin-mobile-brand">
+          <div className="sdu-admin-icon-box">
+            <FontAwesomeIcon icon={faRecycle} />
           </div>
           <div>
-            <h2>SDU</h2>
-            <p>Admin Panel</p>
+            <strong>SDU ADMIN</strong>
+            <span>Admin Panel</span>
           </div>
         </div>
 
-        <button className="hamburger-btn" onClick={toogleMobile}>
+        <button
+          className="sdu-admin-hamburger"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle Navigation"
+        >
           <FontAwesomeIcon icon={mobileOpen ? faXmark : faBars} />
         </button>
       </div>
 
-      {/* ===== PANEL UTAMA (desktop: selalu tampil, mobile: collapsible) ===== */}
-      <div className={`sidebar-panel ${mobileOpen ? "mobile-open" : ""}`}>
-        {/* ===== BRAND (desktop only, mobile pakai versi di topbar) ===== */}
-        <div className="sidebar-brand sidebar-brand-desktop">
-          <div className="brand-icon">
-            <FontAwesomeIcon icon={faLeaf} />
+      {/* Main Admin Sidebar */}
+      <aside className={`sdu-admin-sidebar ${mobileOpen ? "open" : ""}`}>
+        {/* Sidebar Brand Header */}
+        <div className="sdu-aside-header">
+          <div className="sdu-aside-brand">
+            <div className="sdu-admin-icon-box">
+              <FontAwesomeIcon icon={faRecycle} />
+            </div>
+            <div className="sdu-aside-title-col">
+              <span className="sdu-aside-title">SDU</span>
+              <span className="sdu-aside-sub">Sistem Daur Ulang</span>
+            </div>
           </div>
-          <div>
-            <h2>SDU</h2>
-            <p>Admin Panel</p>
-          </div>
+          <span className="sdu-aside-panel-badge">ADMIN PANEL</span>
         </div>
 
-        {/* ===== PROFIL ===== */}
-        <div className="sidebar-profil">
-          <div className="profil-admin" onClick={toogleMenu}>
+        {/* Navigation Menu */}
+        <nav className="sdu-aside-nav">
+          <NavLink
+            to="/admin/dashboard"
+            className={({ isActive }) =>
+              `sdu-aside-nav-item ${isActive ? "active" : ""}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
+            <FontAwesomeIcon icon={faGaugeHigh} className="sdu-aside-nav-icon" />
+            <span>Dashboard</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/transaksi"
+            className={({ isActive }) =>
+              `sdu-aside-nav-item ${isActive ? "active" : ""}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
+            <FontAwesomeIcon
+              icon={faCashRegister}
+              className="sdu-aside-nav-icon"
+            />
+            <span className="sdu-nav-text">Kelola Transaksi</span>
+            {pendingTrx > 0 && (
+              <span className="sdu-aside-count-badge">{pendingTrx} Baru</span>
+            )}
+          </NavLink>
+
+          <NavLink
+            to="/admin/harga"
+            className={({ isActive }) =>
+              `sdu-aside-nav-item ${isActive ? "active" : ""}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
+            <FontAwesomeIcon icon={faTag} className="sdu-aside-nav-icon" />
+            <span>Kelola Harga</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/user"
+            className={({ isActive }) =>
+              `sdu-aside-nav-item ${isActive ? "active" : ""}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
+            <FontAwesomeIcon icon={faUsers} className="sdu-aside-nav-icon" />
+            <span className="sdu-nav-text">Kelola User</span>
+            {pendingUsers > 0 && (
+              <span className="sdu-aside-count-badge">
+                {pendingUsers} Verifikasi
+              </span>
+            )}
+          </NavLink>
+        </nav>
+
+        {/* Sidebar Bottom Profile Card */}
+        <div className="sdu-aside-profile-card">
+          <Link to="/admin/profil" className="sdu-aside-user-link">
             <img
               src={
-                admin?.foto_profil
-                  ? `https://sdu-project.web.id/api/uploads/profil/${admin.foto_profil}`
+                admin.foto_profil
+                  ? getUploadUrl("profil", admin.foto_profil)
                   : Ellipse
               }
-              alt="fotoProfil"
-              className="foto-profil"
+              alt={admin.nama || "Admin SDU"}
+              className="sdu-aside-avatar"
             />
-            <div className="profil-info">
-              <span className="profil-nama">{admin?.nama || "Admin"}</span>
-              <span className="profil-role">Administrator</span>
+            <div className="sdu-aside-user-info">
+              <strong className="sdu-aside-admin-name">
+                {admin.nama || "Budi Santoso"}
+              </strong>
+              <span className="sdu-aside-admin-role">
+                Kepala Operasional Depo Menteng
+              </span>
             </div>
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              className={`profil-chevron ${menuOpen ? "open" : ""}`}
-            />
-          </div>
+          </Link>
 
-          {menuOpen && (
-            <div className="menu-admin">
-              <ul>
-                <Link
-                  to="/admin/profil"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setMobileOpen(false);
-                  }}
-                >
-                  <li>
-                    <FontAwesomeIcon icon={faUser} /> Profil Saya
-                  </li>
-                </Link>
-                <Link to="/login">
-                  <li onClick={handleLogout}>
-                    <FontAwesomeIcon icon={faArrowRightFromBracket} /> Keluar
-                  </li>
-                </Link>
-              </ul>
-            </div>
-          )}
+          <button
+            className="sdu-aside-logout-btn"
+            title="Keluar Akun Admin"
+            onClick={handleLogout}
+          >
+            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+          </button>
         </div>
-
-        {/* ===== MENU NAVIGASI ===== */}
-        <ul className="sidebar-menu">
-          <li>
-            <NavLink
-              to="/admin/dashboard"
-              className={({ isActive }) => (isActive ? "active" : "")}
-              onClick={() => setMobileOpen(false)}
-            >
-              <FontAwesomeIcon icon={faHouse} /> Dashboard
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/admin/transaksi"
-              className={({ isActive }) => (isActive ? "active" : "")}
-              onClick={() => setMobileOpen(false)}
-            >
-              <FontAwesomeIcon icon={faCashRegister} /> Transaksi
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/admin/user"
-              className={({ isActive }) => (isActive ? "active" : "")}
-              onClick={() => setMobileOpen(false)}
-            >
-              <FontAwesomeIcon icon={faUsers} /> User
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/admin/harga"
-              className={({ isActive }) => (isActive ? "active" : "")}
-              onClick={() => setMobileOpen(false)}
-            >
-              <FontAwesomeIcon icon={faTag} /> Harga
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-    </div>
+      </aside>
+    </>
   );
 }
 

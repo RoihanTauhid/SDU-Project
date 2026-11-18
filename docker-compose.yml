@@ -1,0 +1,87 @@
+services:
+  # 1. Database MySQL
+  db:
+    image: mysql:8.0
+    container_name: sdu-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: sdu_db
+    ports:
+      # Port 3307 di laptop dipetakan ke 3306 di container (mencegah bentrok dengan MySQL lokal)
+      - "3307:3306"
+    volumes:
+      # Data database disimpan di volume agar tidak hilang saat container dimatikan
+      - db_data:/var/lib/mysql
+      # Otomatis impor database awal dari sdu_db.sql saat pertama kali dibuat
+      - ./sdu_db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    networks:
+      - sdu-network
+
+  # 2. Redis In-Memory Cache
+  redis:
+    image: redis:alpine
+    container_name: sdu-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - sdu-network
+
+  # 3. Backend Express API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sdu-backend-app
+    restart: always
+    ports:
+      - "5001:5001"
+    environment:
+      PORT: 5001
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: sdu_db
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    volumes:
+      # Simpan file upload (bukti foto transaksi/ktp/profil) ke folder lokal
+      - ./backend/uploads:/app/uploads
+    networks:
+      - sdu-network
+
+  # 4. Frontend React + Nginx
+  frontend:
+    build:
+      context: ./my-app
+      dockerfile: Dockerfile
+    container_name: sdu-frontend-app
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - sdu-network
+
+volumes:
+  db_data:
+  redis_data:
+
+networks:
+  sdu-network:
+    driver: bridge

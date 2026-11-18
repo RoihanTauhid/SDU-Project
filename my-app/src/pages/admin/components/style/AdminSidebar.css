@@ -1,335 +1,291 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --gradasi-hijau: linear-gradient(
-    160deg,
-    #0b3d2e 0%,
-    #144a37 45%,
-    #1f7a52 100%
-  );
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
-}
+/* ==========================================================
+   SDU ADMIN SIDEBAR (MATCHING REFERENCE IMAGE 4 & 5)
+   Clean forest green dark layout, active pill highlight,
+   notification count badge, and bottom profile card.
+========================================================== */
 
-.admin-sidebar {
-  width: 260px;
-  min-height: 100vh;
-  background: var(--gradasi-hijau);
-  box-sizing: border-box;
-  position: relative;
-}
-
-/* ===== TOP BAR MOBILE (default: disembunyikan di desktop) ===== */
-.sidebar-topbar-mobile {
+/* Mobile Topbar */
+.sdu-admin-mobile-bar {
   display: none;
+  align-items: center;
+  justify-content: space-between;
+  background: #0f3e2e;
+  padding: 12px 18px;
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ===== PANEL UTAMA ===== */
-.sidebar-panel {
-  padding: 26px 18px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-/* ===== BRAND ===== */
-.sidebar-brand {
+.sdu-admin-mobile-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.sidebar-brand-desktop {
-  padding: 0 8px 22px 8px;
-  margin-bottom: 18px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+.sdu-admin-mobile-brand strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
-.brand-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--gold);
-  font-size: 18px;
+.sdu-admin-mobile-brand span {
+  font-size: 11px;
+  color: #a7f3d0;
+}
+
+.sdu-admin-hamburger {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
-.sidebar-brand h2 {
+/* Main Sidebar Container */
+.sdu-admin-sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: #0b3427;
   color: #ffffff;
-  font-size: 18px;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: 0.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 900;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.sidebar-brand p {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 11px;
-  margin: 2px 0 0 0;
+/* Header & Brand */
+.sdu-aside-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 20px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ===== PROFIL ===== */
-.sidebar-profil {
-  position: relative;
-  margin-bottom: 22px;
-}
-
-.profil-admin {
+.sdu-aside-brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  cursor: pointer;
-  transition: background 0.15s ease;
 }
 
-.profil-admin:hover {
-  background: rgba(255, 255, 255, 0.14);
+.sdu-admin-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #10b981;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-.foto-profil {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--gold);
-  flex-shrink: 0;
-}
-
-.profil-info {
+.sdu-aside-title-col {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+}
+
+.sdu-aside-title {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.sdu-aside-sub {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.sdu-aside-panel-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.12);
+  color: #a7f3d0;
+  padding: 3px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Nav Menu */
+.sdu-aside-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 20px;
   flex: 1;
 }
 
-.profil-nama {
+.sdu-aside-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.sdu-aside-nav-icon {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+}
+
+.sdu-nav-text {
+  flex: 1;
+}
+
+.sdu-aside-count-badge {
+  background: #f59e0b;
+  color: #78350f;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  margin-left: auto;
+}
+
+.sdu-aside-nav-item:hover {
+  background: rgba(255, 255, 255, 0.07);
   color: #ffffff;
+}
+
+.sdu-aside-nav-item:hover .sdu-aside-nav-icon {
+  color: #10b981;
+}
+
+/* Active Nav State matching Reference Image 4 & 5 */
+.sdu-aside-nav-item.active {
+  background: #059669;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+}
+
+.sdu-aside-nav-item.active .sdu-aside-nav-icon {
+  color: #ffffff;
+}
+
+/* Bottom Profile Card */
+.sdu-aside-profile-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.sdu-aside-user-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+  min-width: 0;
+}
+
+.sdu-aside-avatar {
+  width: 38px !important;
+  height: 38px !important;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #10b981 !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+}
+
+.sdu-aside-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sdu-aside-admin-name {
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
+  color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.profil-role {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 11px;
+.sdu-aside-admin-role {
+  font-size: 10.5px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.profil-chevron {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 12px;
-  transition: transform 0.2s ease;
+.sdu-aside-logout-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
-.profil-chevron.open {
-  transform: rotate(180deg);
+.sdu-aside-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
 }
 
-/* ===== DROPDOWN MENU PROFIL ===== */
-.menu-admin {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: var(--putihCard);
-  border-radius: 14px;
-  box-shadow: var(--shadow-lembut);
-  overflow: hidden;
-}
-
-.menu-admin ul {
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-  margin: 0;
-  gap: 2px;
-  list-style: none;
-}
-
-.menu-admin a {
-  text-decoration: none;
-}
-
-.menu-admin li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--hijaubtn);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 12px;
-  border-radius: 10px;
-  transition: background 0.15s ease;
-}
-
-.menu-admin li:hover {
-  background-color: var(--body);
-}
-
-.menu-admin li svg {
-  color: var(--hijau-mid);
-}
-
-/* ===== MENU NAVIGASI ===== */
-.sidebar-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-}
-
-.sidebar-menu a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 12px 16px;
-  border-radius: 12px;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-}
-
-.sidebar-menu a svg {
-  font-size: 15px;
-  width: 18px;
-}
-
-.sidebar-menu a:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-}
-
-.sidebar-menu a.active {
-  background: var(--gold);
-  color: #1c2b24;
-  box-shadow: 0 6px 14px rgba(201, 164, 92, 0.35);
-}
-
-/* ===== RESPONSIVE (992px - tablet, sidebar tetap vertikal tapi lebih ramping) ===== */
-@media (max-width: 992px) and (min-width: 769px) {
-  .admin-sidebar {
-    width: 220px;
-  }
-
-  .sidebar-brand h2 {
-    font-size: 16px;
-  }
-
-  .sidebar-menu a {
-    padding: 10px 14px;
-    font-size: 13px;
-  }
-}
-
-/* ===== RESPONSIVE (768px ke bawah - HAMBURGER MODE) ===== */
-@media (max-width: 768px) {
-  .admin-sidebar {
-    width: 100%;
-    min-height: auto;
-    border-radius: 0 0 20px 20px;
-  }
-
-  /* Tampilkan topbar mobile */
-  .sidebar-topbar-mobile {
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+  .sdu-admin-mobile-bar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
   }
 
-  .sidebar-brand-mobile {
-    padding: 0;
-    margin: 0;
-    border-bottom: none;
+  .sdu-admin-sidebar {
+    position: fixed;
+    top: 56px;
+    left: -280px;
+    width: 260px;
+    height: calc(100vh - 56px);
+    transition: left 0.3s ease;
+    z-index: 1000;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
   }
 
-  .hamburger-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.12);
-    border: none;
-    color: #ffffff;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  /* Sembunyikan brand desktop, panel collapsible */
-  .sidebar-brand-desktop {
-    display: none;
-  }
-
-  .sidebar-panel {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 18px;
-    transition:
-      max-height 0.3s ease,
-      padding 0.3s ease;
-  }
-
-  .sidebar-panel.mobile-open {
-    max-height: 600px;
-    padding: 4px 18px 20px 18px;
-  }
-
-  .sidebar-profil {
-    margin-bottom: 16px;
-  }
-
-  .menu-admin {
-    position: static;
-    margin-top: 8px;
-    box-shadow: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .menu-admin li {
-    color: #ffffff;
-  }
-
-  .menu-admin li:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .menu-admin li svg {
-    color: var(--gold);
-  }
-
-  .sidebar-menu {
-    gap: 6px;
-  }
-
-  .sidebar-menu a {
-    padding: 12px 14px;
+  .sdu-admin-sidebar.open {
+    left: 0;
   }
 }

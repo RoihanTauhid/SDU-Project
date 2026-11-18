@@ -1,551 +1,972 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --gradasi-hijau: linear-gradient(
-    135deg,
-    #0b3d2e 0%,
-    #1f7a52 55%,
-    #2fa66d 100%
-  );
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
-}
+/* ============================================================
+   SDU LANDING PAGE STYLING
+   Exact match to Reference Image 1
+============================================================ */
 
-* {
-  box-sizing: border-box;
-}
-
-.landing-page {
-  width: 100%;
-  background: var(--body);
-  font-family: "Segoe UI", "Poppins", sans-serif;
+.sdu-landing-page {
+  background-color: #f8fafc;
+  color: #0f172a;
   overflow-x: hidden;
 }
 
-.section-eyebrow {
-  color: var(--hijau-mid);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 1px;
-  margin: 0 0 8px 0;
+.sdu-section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.section-eyebrow.light {
-  color: rgba(255, 255, 255, 0.8);
+/* ============================================================
+   1. HERO SECTION
+============================================================ */
+.sdu-hero-section {
+  padding: 60px 0 70px 0;
+  background: radial-gradient(circle at top left, #f0fdf4 0%, #f8fafc 50%, #ffffff 100%);
+  border-bottom: 1px solid #e2e8f0;
 }
 
-/* ================================= */
-/* HERO                               */
-/* ================================= */
-.hero {
-  width: 100%;
-  position: relative;
-}
-
-.hero-image {
-  width: 100%;
-  height: 560px;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    100deg,
-    rgba(11, 61, 46, 0.92) 0%,
-    rgba(11, 61, 46, 0.55) 45%,
-    rgba(11, 61, 46, 0.15) 100%
-  );
-  display: flex;
+.sdu-hero-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
-  padding: 0 90px;
+  gap: 48px;
 }
 
-.hero-content {
-  max-width: 560px;
+.sdu-hero-left {
+  display: flex;
+  flex-direction: column;
 }
 
-.hero-eyebrow {
+.sdu-pill-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #eafff2;
-  background: rgba(255, 255, 255, 0.12);
-  padding: 8px 18px;
-  border-radius: 30px;
-  font-size: 12px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  margin: 0 0 18px 0;
-  backdrop-filter: blur(4px);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid #bae6fd;
+  margin-bottom: 20px;
 }
 
-.hero-title {
-  color: #ffffff;
-  font-size: 40px;
-  font-weight: 800;
-  line-height: 1.3;
-  margin: 0 0 18px 0;
-}
-
-.hero-desc {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 15px;
-  line-height: 1.7;
-  margin: 0 0 28px 0;
-}
-
-.hero-btn {
+.sdu-pill-icon {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background: var(--gold);
-  color: #1c2b24;
-  font-weight: 700;
-  font-size: 15px;
-  padding: 15px 30px;
-  border-radius: 30px;
-  text-decoration: none;
-  box-shadow: 0 6px 18px rgba(201, 164, 92, 0.4);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  font-size: 1rem;
 }
 
-.hero-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(201, 164, 92, 0.5);
+.sdu-pill-badge.small {
+  padding: 4px 10px;
+  font-size: 0.75rem;
 }
 
-/* ================================= */
-/* TENTANG                            */
-/* ================================= */
-.tentang {
-  padding: 70px 90px;
+.sdu-hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
 }
 
-.tentang-card {
+.sdu-title-highlight {
+  color: #0284c7;
+  position: relative;
+  display: inline-block;
+}
+
+.sdu-hero-desc {
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: #475569;
+  max-width: 580px;
+  margin-bottom: 32px;
+}
+
+.sdu-hero-actions {
   display: flex;
   align-items: center;
-  gap: 50px;
-  background: var(--putihCard);
-  padding: 40px;
-  border-radius: 24px;
-  box-shadow: var(--shadow-lembut);
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 
-.tentang-kiri {
-  flex: 0 0 260px;
-  display: flex;
+.sdu-btn-primary {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  gap: 10px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-primary:hover {
+  background: #006241;
+  box-shadow: 0 6px 18px rgba(0, 98, 65, 0.3);
+  transform: translateY(-2px);
+}
+
+.sdu-btn-secondary {
+  display: inline-flex;
   align-items: center;
-  background: var(--inshigt);
-  border-radius: 20px;
-  padding: 30px;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 13px 24px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
-.tentang-kiri img {
-  width: 180px;
-  height: auto;
+.sdu-btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
 }
 
-.tentang-kanan {
-  flex: 1;
+.sdu-btn-wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #25d366;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 12px 22px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+  transition: all 0.2s ease;
 }
 
-.tentang-kanan h2 {
-  color: var(--hijaubtn);
-  margin: 0 0 18px 0;
-  font-size: 26px;
-  font-weight: 800;
+.sdu-btn-wa:hover {
+  background: #20ba5a;
+  transform: translateY(-2px);
 }
 
-.tentang-kanan p {
-  margin-bottom: 15px;
-  line-height: 1.8;
-  color: var(--textabu);
-  font-size: 15px;
+/* Micro benefits row */
+.sdu-micro-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
 }
 
-/* ================================= */
-/* CARA KERJA                         */
-/* ================================= */
-.cara-kerja {
-  background: var(--gradasi-hijau);
-  padding: 70px 90px;
-  text-align: center;
+.sdu-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sdu-benefit-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #e0f2fe;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sdu-benefit-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sdu-benefit-text strong {
+  font-size: 0.85rem;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.sdu-benefit-text span {
+  font-size: 0.74rem;
+  color: #64748b;
+}
+
+/* Hero Right Image & Floating Cards */
+.sdu-hero-right {
   position: relative;
-  overflow: hidden;
 }
 
-.cara-kerja::before {
-  content: "";
+.sdu-hero-image-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: visible;
+}
+
+.sdu-main-hero-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15);
+  border: 1px solid #e2e8f0;
+}
+
+/* Floating Card Top */
+.sdu-floating-card {
   position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 12px 18px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
 }
 
-.cara-kerja h2 {
-  position: relative;
-  color: white;
-  margin: 0 0 36px 0;
-  font-size: 28px;
+.sdu-float-top {
+  top: -18px;
+  right: -12px;
+}
+
+.sdu-float-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #d1fae5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.sdu-float-icon.truck {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.sdu-float-label {
+  display: block;
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sdu-float-val {
+  font-size: 0.98rem;
   font-weight: 800;
+  color: #0f172a;
 }
 
-.cara-container {
-  position: relative;
+/* Floating Card Bottom */
+.sdu-float-bottom {
+  bottom: -20px;
+  left: 20px;
+  right: 20px;
+  justify-content: space-between;
+}
+
+.sdu-float-content strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #0f172a;
+}
+
+.sdu-float-content p {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.sdu-float-btn {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.sdu-float-btn:hover {
+  background: #006241;
+}
+
+/* ============================================================
+   2. SECTION TENTANG & MASTER KATALOG MATERI
+============================================================ */
+.sdu-catalog-section {
+  padding: 85px 0 90px 0;
+  background: #ffffff;
+}
+
+.sdu-section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 48px;
+}
+
+.sdu-section-eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0284c7;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sdu-section-title {
+  font-size: 2.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  max-width: 650px;
+  margin-bottom: 12px;
+}
+
+.sdu-section-subtitle {
+  font-size: 0.98rem;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.sdu-header-tag-pill {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #475569;
+  white-space: nowrap;
+}
+
+/* 6 Material Cards Grid */
+.sdu-material-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.sdu-material-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sdu-material-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -4px rgba(15, 23, 42, 0.08);
+  border-color: #cbd5e1;
+}
+
+.sdu-mat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.sdu-mat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.sdu-mat-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.sdu-mat-badge.high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.sdu-mat-badge.primary {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.sdu-mat-badge.info {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.sdu-mat-badge.amber {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.sdu-mat-badge.slate {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.sdu-mat-badge.default {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.sdu-mat-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.sdu-mat-desc {
+  font-size: 0.86rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.sdu-mat-rate {
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sdu-rate-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.sdu-rate-value {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* ============================================================
+   3. SECTION 4 LANGKAH PRAKTIS
+============================================================ */
+.sdu-steps-section {
+  padding: 90px 0;
+  background: #f8fafc;
+}
+
+.sdu-center-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 52px auto;
+}
+
+.sdu-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 40px;
+}
+
+.sdu-step-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 26px 22px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+  transition: all 0.2s ease;
+}
+
+.sdu-step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+}
+
+.sdu-step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.sdu-step-number {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  background: #f1f5f9;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sdu-step-icon {
+  font-size: 1.25rem;
+  color: #0284c7;
+}
+
+.sdu-step-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.sdu-step-card p {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Coverage Banner */
+.sdu-coverage-banner {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.sdu-cov-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sdu-cov-pin {
+  font-size: 1.4rem;
+  color: #0284c7;
+}
+
+.sdu-cov-left strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.sdu-cov-left p {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.sdu-cov-btn {
+  padding: 8px 18px;
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   4. IMPACT SECTION (DARK NAVY)
+============================================================ */
+.sdu-impact-section {
+  padding: 80px 0;
+  background: #091E42;
+  color: #ffffff;
+}
+
+.sdu-impact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+}
+
+.sdu-impact-eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.sdu-impact-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.sdu-impact-sync {
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.sdu-impact-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
-.cara-card {
-  background: var(--putihCard);
-  padding: 32px 22px;
+.sdu-impact-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 18px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease;
+  padding: 28px 24px;
 }
 
-.cara-card:hover {
-  transform: translateY(-6px);
+.sdu-imp-icon {
+  font-size: 1.4rem;
+  color: #38bdf8;
+  margin-bottom: 16px;
 }
 
-.cara-icon {
-  width: 52px;
-  height: 52px;
-  margin: 0 auto 16px auto;
-  border-radius: 14px;
-  background: var(--inshigt);
-  color: var(--hijau-mid);
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cara-card h3 {
-  color: var(--gold);
-  font-size: 30px;
+.sdu-imp-value {
+  font-size: 2.2rem;
   font-weight: 800;
-  margin: 0 0 6px 0;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
 }
 
-.cara-card p {
-  color: var(--hijaubtn);
-  font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-}
-
-/* ================================= */
-/* JENIS SAMPAH                       */
-/* ================================= */
-.jenis-sampah {
-  padding: 70px 90px;
-  text-align: center;
-}
-
-.jenis-sampah h2 {
-  color: var(--hijaubtn);
-  margin: 0 0 8px 0;
-  font-size: 28px;
-  font-weight: 800;
-}
-
-.sampah-container {
-  margin-top: 34px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-}
-
-.sampah-card {
-  background: var(--putihCard);
-  padding: 34px 20px;
-  border-radius: 18px;
-  font-size: 30px;
-  color: var(--hijau-mid);
-  box-shadow: var(--shadow-lembut);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.sampah-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 28px rgba(11, 61, 46, 0.16);
-}
-
-.sampah-card p {
-  margin-top: 14px;
-  font-size: 14px;
+.sdu-imp-label {
+  display: block;
+  font-size: 0.92rem;
   font-weight: 700;
-  color: var(--hijaubtn);
+  color: #e2e8f0;
+  margin-bottom: 4px;
 }
 
-/* ================================= */
-/* STATISTIK                          */
-/* ================================= */
-.statistik {
-  padding: 70px 90px;
-  text-align: center;
+.sdu-imp-sub {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin: 0;
 }
 
-.statistik h2 {
-  color: var(--hijaubtn);
-  margin: 0 0 8px 0;
-  font-size: 28px;
-  font-weight: 800;
+/* ============================================================
+   5. TESTIMONIALS SECTION
+============================================================ */
+.sdu-testi-section {
+  padding: 90px 0;
+  background: #ffffff;
 }
 
-.statistik-container {
-  margin-top: 34px;
+.sdu-testi-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
-.stat-card {
-  background: var(--gradasi-hijau);
-  color: white;
-  padding: 34px 20px;
+.sdu-testi-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 18px;
-  box-shadow: var(--shadow-lembut);
-  transition: transform 0.2s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-6px);
-}
-
-.stat-icon {
-  width: 44px;
-  height: 44px;
-  margin: 0 auto 14px auto;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.15);
+  padding: 26px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: var(--gold);
+  flex-direction: column;
 }
 
-.stat-card h3 {
-  font-size: 28px;
-  font-weight: 800;
-  margin: 0 0 6px 0;
-}
-
-.stat-card p {
-  margin: 0;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-/* ================================= */
-/* FOOTER                             */
-/* ================================= */
-.footer {
-  background: var(--gradasi-hijau);
-  color: white;
-  text-align: center;
-  padding: 50px 20px 24px 20px;
-  margin-top: 60px;
-}
-
-.footer-content {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.footer-brand {
+.sdu-testi-stars {
+  color: #f59e0b;
+  font-size: 0.88rem;
+  margin-bottom: 16px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 4px;
 }
 
-.footer-logo {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  padding: 6px;
-}
-
-.footer h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.footer p {
-  margin-top: 10px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+.sdu-testi-quote {
+  font-size: 0.92rem;
   line-height: 1.6;
+  color: #334155;
+  margin-bottom: 24px;
+  flex-grow: 1;
 }
 
-.footer-bottom {
-  margin-top: 26px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+.sdu-testi-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.footer-bottom p {
+.sdu-testi-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0284c7;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sdu-testi-avatar.bp {
+  background: #059669;
+}
+
+.sdu-testi-avatar.rg {
+  background: #b45309;
+}
+
+.sdu-testi-user strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #0f172a;
+}
+
+.sdu-testi-user span {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* ============================================================
+   6. CALL TO ACTION (CTA BOX)
+============================================================ */
+.sdu-cta-section {
+  padding: 30px 0 80px 0;
+  background: #f8fafc;
+}
+
+.sdu-cta-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 44px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 48px;
+  box-shadow: 0 16px 36px -6px rgba(15, 23, 42, 0.07);
+}
+
+.sdu-cta-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.sdu-cta-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 12px 0 14px 0;
+  line-height: 1.25;
+}
+
+.sdu-cta-desc {
+  font-size: 0.96rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.sdu-cta-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Simulation Mini Widget */
+.sdu-sim-widget {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.sdu-sim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.sdu-sim-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sdu-sim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  color: #334155;
+}
+
+.sdu-sim-row strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.sdu-sim-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 4px 0;
+}
+
+.sdu-sim-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.sdu-sim-total span {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sdu-total-nominal {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #006241;
+}
+
+/* ============================================================
+   7. FOOTER
+============================================================ */
+.sdu-footer {
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  padding: 36px 0 28px 0;
+}
+
+.sdu-footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sdu-footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.sdu-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sdu-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.sdu-footer-links a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  text-decoration: none;
+}
+
+.sdu-footer-links a:hover {
+  color: #0f172a;
+}
+
+.sdu-footer-bottom {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.sdu-footer-bottom p {
+  font-size: 0.82rem;
+  color: #94a3b8;
   margin: 0;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
 }
 
-/* ================================= */
-/* RESPONSIVE                         */
-/* ================================= */
-@media (max-width: 992px) {
-  .hero-image {
-    height: 480px;
+/* ============================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+============================================================ */
+@media (max-width: 1024px) {
+  .sdu-hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
-
-  .hero-overlay {
-    padding: 0 40px;
+  .sdu-hero-title {
+    font-size: 2.6rem;
   }
-
-  .hero-title {
-    font-size: 32px;
-  }
-
-  .tentang,
-  .cara-kerja,
-  .jenis-sampah,
-  .statistik {
-    padding: 50px 40px;
-  }
-
-  .cara-container {
+  .sdu-material-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .sampah-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .statistik-container {
+  .sdu-steps-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .sdu-impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sdu-testi-grid {
+    grid-template-columns: 1fr;
+  }
+  .sdu-cta-card {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 30px;
   }
 }
 
-@media (max-width: 576px) {
-  .hero-image {
-    height: 420px;
+@media (max-width: 640px) {
+  .sdu-hero-title {
+    font-size: 2.1rem;
   }
-
-  .hero-overlay {
-    padding: 0 20px;
-    background: linear-gradient(
-      180deg,
-      rgba(11, 61, 46, 0.4) 0%,
-      rgba(11, 61, 46, 0.9) 100%
-    );
-    align-items: flex-end;
-    padding-bottom: 40px;
+  .sdu-material-grid {
+    grid-template-columns: 1fr;
   }
-
-  .hero-content {
-    max-width: 100%;
+  .sdu-steps-grid {
+    grid-template-columns: 1fr;
   }
-
-  .hero-title {
-    font-size: 24px;
+  .sdu-impact-grid {
+    grid-template-columns: 1fr;
   }
-
-  .hero-desc {
-    font-size: 13px;
-  }
-
-  .hero-btn {
-    padding: 12px 22px;
-    font-size: 13px;
-  }
-
-  .tentang,
-  .cara-kerja,
-  .jenis-sampah,
-  .statistik {
-    padding: 40px 20px;
-  }
-
-  .tentang-card {
+  .sdu-section-header-row {
     flex-direction: column;
-    padding: 24px;
-    gap: 24px;
+    align-items: flex-start;
   }
-
-  .tentang-kiri {
-    flex: none;
-    width: 100%;
-    padding: 20px;
+  .sdu-micro-benefits {
+    grid-template-columns: 1fr;
   }
-
-  .tentang-kiri img {
-    width: 130px;
-  }
-
-  .tentang-kanan h2,
-  .cara-kerja h2,
-  .jenis-sampah h2,
-  .statistik h2 {
-    font-size: 22px;
-  }
-
-  .cara-container {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .cara-card {
-    padding: 22px 14px;
-  }
-
-  .sampah-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
-
-  .sampah-card {
-    padding: 24px 14px;
-    font-size: 24px;
-  }
-
-  .statistik-container {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .stat-card {
-    padding: 22px 14px;
-  }
-
-  .stat-card h3 {
-    font-size: 22px;
-  }
-
-  .footer {
-    padding: 36px 16px 20px 16px;
+  .sdu-float-bottom {
+    display: none;
   }
 }

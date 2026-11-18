@@ -1,83 +1,108 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
-}
+/* ==========================================================
+   ADMIN SEARCH & FILTER BAR (REFERENCE IMAGE 4)
+========================================================== */
 
-.filter-search-container {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 22px;
-  margin-top: 22px;
-}
-
-.search-input-wrapper {
-  position: relative;
-  flex: 1;
+.sdu-admin-filter-bar {
   display: flex;
   align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 10px 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
-.search-icon {
-  position: absolute;
-  left: 16px;
-  color: var(--hijau-mid);
+/* 1. Search text */
+.sdu-search-input-wrap {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sdu-search-icon {
+  color: #94a3b8;
   font-size: 14px;
 }
 
-.search-input-wrapper input {
+.sdu-search-input-wrap input {
   width: 100%;
-  padding: 13px 14px 13px 42px;
-  border-radius: 12px;
-  border: 1px solid #dcebe1;
-  background: var(--putihCard);
-  color: var(--hijaubtn);
-  font-size: 14px;
-  box-sizing: border-box;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-}
-
-.search-input-wrapper input:focus {
+  border: none;
   outline: none;
-  border-color: var(--hijau-light);
-  box-shadow: 0 0 0 3px rgba(47, 166, 109, 0.15);
+  background: transparent;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: #0f172a;
 }
 
-.filter-search-container select {
-  width: 190px;
-  padding: 13px 14px;
-  border-radius: 12px;
-  border: 1px solid #dcebe1;
-  background: var(--putihCard);
-  color: var(--hijaubtn);
+.sdu-search-input-wrap input::placeholder {
+  color: #94a3b8;
+}
+
+/* 2. Category select */
+.sdu-category-filter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+}
+
+.sdu-cat-icon {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.sdu-category-filter-wrap select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
   font-weight: 600;
-  font-size: 14px;
+  color: #334155;
   cursor: pointer;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
 }
 
-.filter-search-container select:focus {
+/* 3. Date picker */
+.sdu-date-filter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+}
+
+.sdu-date-icon {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.sdu-date-filter-wrap input[type="date"] {
+  border: none;
   outline: none;
-  border-color: var(--hijau-light);
-  box-shadow: 0 0 0 3px rgba(47, 166, 109, 0.15);
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
 }
 
-@media (max-width: 576px) {
-  .filter-search-container {
+@media (max-width: 768px) {
+  .sdu-admin-filter-bar {
     flex-direction: column;
+    align-items: stretch;
   }
-
-  .filter-search-container select {
-    width: 100%;
+  .sdu-category-filter-wrap,
+  .sdu-date-filter-wrap {
+    border-left: none;
+    border-top: 1px solid #f1f5f9;
+    padding-left: 0;
+    padding-top: 8px;
   }
 }

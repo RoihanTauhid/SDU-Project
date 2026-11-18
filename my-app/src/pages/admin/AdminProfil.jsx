@@ -1,13 +1,20 @@
 import React from "react";
 import ProfilComponent from "../../components/ProfilComponent";
-import Navbar from "../../components/Navbar";
+import AdminLayout from "../../layouts/AdminLayout";
+import { faUserGear } from "@fortawesome/free-solid-svg-icons";
 
 function AdminProfil() {
   return (
-    <div>
-      <Navbar />
-      <ProfilComponent redirecTo="/admin/dashboard" />
-    </div>
+    <AdminLayout
+      eyebrow="PENGATURAN AKUN OPERASIONAL"
+      title="Profil Admin Depo"
+      subtitle="Perbarui identitas profil operasional dan kontak WhatsApp depo Anda."
+      icon={faUserGear}
+    >
+      <div style={{ maxWidth: "680px", margin: "0 auto" }}>
+        <ProfilComponent redirecTo="/admin/dashboard" isEmbedded={true} />
+      </div>
+    </AdminLayout>
   );
 }
 

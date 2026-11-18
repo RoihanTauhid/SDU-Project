@@ -1,31 +1,60 @@
 import React from "react";
 import "./style/SearchBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faLayerGroup,
+  faCalendarDays,
+} from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar({ search, setSearch, filterStatus, setFilterStatus }) {
+function SearchBar({
+  search,
+  setSearch,
+  filterKategori,
+  setFilterKategori,
+  filterTanggal,
+  setFilterTanggal,
+}) {
   return (
-    <div className="filter-search-container">
-      <div className="search-input-wrapper">
-        <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+    <div className="sdu-admin-filter-bar">
+      {/* 1. Search Text Input */}
+      <div className="sdu-search-input-wrap">
+        <FontAwesomeIcon icon={faMagnifyingGlass} className="sdu-search-icon" />
         <input
           type="text"
-          placeholder="Cari nama, no HP, atau kategori..."
+          placeholder="Cari nama warga, nomor WhatsApp, atau ID TRX..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <select
-        value={filterStatus}
-        onChange={(e) => setFilterStatus(e.target.value)}
-      >
-        <option value="Semua">Semua Status</option>
-        <option value="Menunggu">Menunggu</option>
-        <option value="Diproses">Diproses</option>
-        <option value="Dijemput">Dijemput</option>
-        <option value="Selesai">Selesai</option>
-      </select>
+      {/* 2. Category Dropdown */}
+      <div className="sdu-category-filter-wrap">
+        <FontAwesomeIcon icon={faLayerGroup} className="sdu-cat-icon" />
+        <select
+          value={filterKategori}
+          onChange={(e) => setFilterKategori(e.target.value)}
+        >
+          <option value="Semua">Semua Kategori Sampah</option>
+          <option value="Plastik">Plastik (PET & HDPE)</option>
+          <option value="Kardus">Kardus & Kertas</option>
+          <option value="Kaleng">Kaleng & Aluminium</option>
+          <option value="Besi">Besi & Logam</option>
+          <option value="Botol">Botol Kaca</option>
+          <option value="Pecah Belah">Pecah Belah</option>
+        </select>
+      </div>
+
+      {/* 3. Date Filter */}
+      <div className="sdu-date-filter-wrap">
+        <FontAwesomeIcon icon={faCalendarDays} className="sdu-date-icon" />
+        <input
+          type="date"
+          value={filterTanggal || ""}
+          onChange={(e) => setFilterTanggal(e.target.value)}
+          placeholder="Pilih Tanggal"
+        />
+      </div>
     </div>
   );
 }

@@ -1,41 +1,99 @@
-/* ======================
-   USER TERBARU
-====================== */
+/* ==========================================================
+   USER TERBARU WIDGET
+========================================================== */
 
-.user-terbaru {
-  background: var(--putihCard);
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: var(--shadow-lembut);
-}
-
-.user-item {
+.sdu-recent-user-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 4px;
-  border-bottom: 1px solid #e6f1ea;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
 }
 
-.user-item:last-child {
-  border-bottom: none;
+.sdu-recent-user-item:hover {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
 }
 
-.user-item h4 {
-  margin: 0;
-  color: var(--hijaubtn);
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.user-item p {
-  margin: 3px 0 0;
+.sdu-user-avatar-initial {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0f3e2e;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 12px;
-  color: var(--textabu);
+  font-weight: 800;
+  flex-shrink: 0;
 }
 
-.user-item span {
+.sdu-recent-user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sdu-user-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sdu-user-phone {
+  font-size: 11.5px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sdu-user-joined-date {
   font-size: 11px;
-  color: var(--textabu);
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.sdu-recent-user-item.clickable {
+  cursor: pointer;
+}
+
+.sdu-user-avatar-thumb {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #10b981;
+  flex-shrink: 0;
+}
+
+.sdu-recent-verif-tag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 9999px;
   white-space: nowrap;
+}
+
+.sdu-recent-verif-tag.pending {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.sdu-recent-verif-tag.verified {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.sdu-recent-verif-tag.rejected {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
 }

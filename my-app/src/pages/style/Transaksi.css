@@ -1,344 +1,1310 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --gradasi-hijau: linear-gradient(
-    135deg,
-    #0b3d2e 0%,
-    #1f7a52 55%,
-    #2fa66d 100%
-  );
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
+/* ============================================================
+   SDU TRANSAKSI (SETOR SAMPAH) STYLING
+   Exact match to Reference Image 3
+============================================================ */
+
+.sdu-transaksi-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  color: #0f172a;
 }
 
-.transaksi-page {
-  width: 100%;
-  min-height: calc(100vh - 96px);
-  background: var(--body);
-  padding-bottom: 40px;
-  box-sizing: border-box;
+.sdu-transaksi-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 36px 24px 80px 24px;
 }
 
-/* ================================= */
-/* ATAS - PANDUAN STEP BY STEP        */
-/* ================================= */
-.panduan-box {
-  width: 100%;
-  background: var(--gradasi-hijau);
-  padding: 40px 60px;
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden;
+/* ============================================================
+   PAGE HEADER
+============================================================ */
+.sdu-tx-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 28px;
 }
 
-.panduan-box::before {
-  content: "";
-  position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 240px;
-  height: 240px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  pointer-events: none;
-}
-
-.panduan-title {
-  position: relative;
-  z-index: 1;
-  color: #ffffff;
-  font-size: 24px;
+.sdu-tx-eyebrow {
+  display: block;
+  font-size: 0.74rem;
   font-weight: 800;
-  text-align: center;
-  margin: 0 0 28px 0;
-  letter-spacing: 0.3px;
+  color: #0284c7;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
-.panduan-steps {
+.sdu-tx-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.sdu-tx-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.sdu-tx-guarantee-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   5-STEP PROGRESS BAR (TOP STEPPER)
+============================================================ */
+.sdu-tx-stepper-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+.sdu-step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sdu-step-bubble {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #94a3b8;
+  font-size: 0.84rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sdu-step-item.checked .sdu-step-bubble {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.sdu-step-item.active .sdu-step-bubble {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.sdu-step-label-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.sdu-step-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+}
+
+.sdu-step-tag.active {
+  color: #0284c7;
+}
+
+.sdu-step-tag.completed {
+  color: #15803d;
+}
+
+.sdu-step-label-group strong {
+  font-size: 0.84rem;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.sdu-step-item.active strong {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.sdu-step-item.checked strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* ============================================================
+   2-COLUMN FORM CONTENT
+============================================================ */
+.sdu-tx-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.sdu-tx-left-col,
+.sdu-tx-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card Container */
+.sdu-card-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.04);
+}
+
+.sdu-section-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sdu-card-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.sdu-section-title-bar h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.sdu-selected-count-tag,
+.sdu-min-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.sdu-gps-live-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+/* 6 Category Selector Cards Grid */
+.sdu-cat-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.sdu-cat-btn {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
   position: relative;
-  z-index: 1;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.sdu-cat-btn:hover {
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.sdu-cat-btn.selected {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+}
+
+.sdu-cat-check-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sdu-cat-icon {
+  font-size: 1.4rem;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.sdu-cat-btn.selected .sdu-cat-icon {
+  color: #0284c7;
+}
+
+.sdu-cat-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.sdu-cat-rate {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.sdu-info-alert-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  gap: 0;
-  max-width: 1100px;
-  margin: 0 auto;
+  gap: 12px;
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.5;
 }
 
-.panduan-step {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-
-.step-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  padding: 18px 14px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-  position: relative;
-  min-height: 150px;
-}
-
-.step-number {
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--gold);
-  color: #1c2b24;
-  font-weight: 800;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.step-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--inshigt);
-  color: var(--hijau-mid);
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.step-card h3 {
-  margin: 0 0 4px 0;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--hijaubtn);
-}
-
-.step-card p {
-  margin: 0;
-  font-size: 11px;
-  color: var(--textabu);
-  line-height: 1.4;
-}
-
-.step-connector {
-  width: 24px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.4);
-  margin: 0 4px;
+.sdu-info-alert-box svg {
+  color: #0284c7;
+  margin-top: 2px;
   flex-shrink: 0;
-  align-self: flex-start;
-  margin-top: 32px;
 }
 
-/* ================================= */
-/* BAWAH - FORM TRANSAKSI             */
-/* ================================= */
-.transaksi-kanan {
-  width: 100%;
+/* ============================================================
+   ESTIMASI BERAT & STEPPER
+============================================================ */
+.sdu-stepper-counter-row {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.sdu-counter-box {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+.sdu-counter-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 36px 24px 0 24px;
-  box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
-.transaksi-container {
-  width: 100%;
-  max-width: 560px;
-  background: var(--putihCard);
-  padding: 30px 34px;
-  border-radius: 20px;
-  box-shadow: var(--shadow-lembut);
+.sdu-counter-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
 }
 
-.transaksi-container h1 {
-  text-align: center;
-  margin-bottom: 18px;
-  color: var(--hijaubtn);
-  font-size: 22px;
-  font-weight: 800;
-}
-
-.transaksi-container form {
+.sdu-counter-display {
+  padding: 0 24px;
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.sdu-counter-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sdu-counter-unit {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+/* Preset Pills */
+.sdu-preset-pills {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.transaksi-container label {
-  font-weight: 600;
-  color: var(--hijaubtn);
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.transaksi-container input,
-.transaksi-container select,
-.transaksi-container textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #dcebe1;
+.sdu-preset-pill {
+  padding: 8px 16px;
   border-radius: 10px;
-  font-size: 14px;
-  box-sizing: border-box;
-  color: var(--hijaubtn);
-  background: var(--body);
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-}
-
-.transaksi-container input:focus,
-.transaksi-container select:focus,
-.transaksi-container textarea:focus {
-  outline: none;
-  border-color: var(--hijau-light);
-  box-shadow: 0 0 0 3px rgba(47, 166, 109, 0.15);
-}
-
-.transaksi-container textarea {
-  resize: none;
-}
-
-.hasil {
-  background: var(--inshigt);
-  padding: 14px 18px;
-  border-radius: 14px;
-  margin-top: 6px;
-}
-
-.hasil p {
-  font-size: 13px;
-  margin: 5px 0;
-  color: var(--textabu);
-  display: flex;
-  justify-content: space-between;
-}
-
-.hasil p strong {
-  color: var(--hijaubtn);
-}
-
-.hasil h3 {
-  color: var(--hijaubtn);
-  font-size: 17px;
-  font-weight: 800;
-  margin: 10px 0 0 0;
-  padding-top: 8px;
-  border-top: 1px dashed rgba(11, 61, 46, 0.2);
-  display: flex;
-  justify-content: space-between;
-}
-
-.btn-trans {
-  width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: 12px;
-  background: var(--gradasi-hijau);
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 15px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  font-size: 0.86rem;
   font-weight: 700;
+  color: #475569;
+  transition: all 0.2s ease;
+}
+
+.sdu-preset-pill:hover {
+  background: #e2e8f0;
+}
+
+.sdu-preset-pill.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+/* Target Bonus Progress Bar */
+.sdu-bonus-progress-bar {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 22px;
+  transition: all 0.3s ease;
+}
+
+.sdu-bonus-progress-bar.achieved {
+  background: #ecfdf5;
+  border-color: #86efac;
+}
+
+.sdu-bonus-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.sdu-bonus-top strong {
+  color: #0284c7;
+  font-weight: 800;
+}
+
+.sdu-bonus-top strong.bonus-active-text {
+  color: #059669;
+}
+
+.sdu-progress-track {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.sdu-progress-fill {
+  height: 100%;
+  background: #0284c7;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.sdu-progress-fill.achieved {
+  background: #10b981;
+}
+
+.sdu-bonus-subnote {
+  font-size: 0.74rem;
+  color: #64748b;
   margin-top: 6px;
-  transition:
-    transform 0.15s,
-    box-shadow 0.15s;
-  box-shadow: 0 6px 16px rgba(11, 61, 46, 0.25);
+  line-height: 1.4;
 }
 
-.btn-trans:hover {
+.sdu-bonus-achieved-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #15803d;
+  font-weight: 700;
+}
+
+/* Income Estimate Card */
+.sdu-income-estimate-card {
+  background: #f0fdf4;
+  border: 1.5px solid #a7f3d0;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.sdu-income-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sdu-income-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #006241;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.sdu-income-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #047857;
+  letter-spacing: 0.06em;
+}
+
+.sdu-income-val {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #065f46;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.sdu-income-bonus-indicator {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #059669;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sdu-income-formula-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.sdu-income-formula {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #059669;
+}
+
+.sdu-income-bonus-tag {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #065f46;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   FORM FIELDS & PHOTO UPLOAD
+============================================================ */
+.sdu-form-group {
+  margin-bottom: 18px;
+}
+
+.sdu-form-label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.sdu-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-size: 0.92rem;
+  color: #0f172a;
+  resize: vertical;
+}
+
+.sdu-textarea:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Photo Dropzone */
+.sdu-photo-upload-dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.sdu-photo-upload-dropzone:hover {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.sdu-upload-icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.sdu-photo-upload-dropzone strong {
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.sdu-photo-upload-dropzone p {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Uploaded Photo Preview Card */
+.sdu-uploaded-photo-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sdu-photo-thumb {
+  width: 68px;
+  height: 68px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sdu-photo-meta {
+  flex-grow: 1;
+}
+
+.sdu-photo-meta strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.sdu-photo-meta p {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0 0 4px 0;
+}
+
+.sdu-photo-status-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #047857;
+  background: #d1fae5;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.sdu-photo-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sdu-btn-outline-sm {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  background: #ffffff;
+}
+
+.sdu-btn-danger-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   RIGHT COLUMN (LOCATION, TIME & SUBMIT)
+============================================================ */
+.sdu-input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sdu-field-icon {
+  position: absolute;
+  left: 14px;
+  color: #64748b;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.sdu-input-field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-size: 0.92rem;
+  color: #0f172a;
+}
+
+.sdu-input-field.has-icon {
+  padding-left: 40px;
+}
+
+.sdu-input-field:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Map Wrapper */
+.sdu-map-wrapper {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  margin-top: 10px;
+}
+
+.sdu-map-tip-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.76rem;
+  color: #475569;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  gap: 10px;
+}
+
+.sdu-map-tip-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sdu-coords-micro {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #a7f3d0;
+}
+
+.sdu-btn-my-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #006241;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-my-location:hover {
+  background: #004d34;
+  transform: translateY(-1px);
+}
+
+/* Floating GPS button on the map */
+.sdu-map-floating-gps-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1000;
+  background: #ffffff;
+  color: #006241;
+  border: 1.5px solid #059669;
+  border-radius: 9999px;
+  padding: 7px 13px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-map-floating-gps-btn:hover {
+  background: #ecfdf5;
+  color: #004d34;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 98, 65, 0.2);
+}
+
+.sdu-map-floating-gps-btn:disabled {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+.sdu-map-floating-gps-btn svg {
+  color: #059669;
+  font-size: 0.88rem;
+}
+
+/* Time Slots */
+.sdu-time-slots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.sdu-time-slot-card {
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.sdu-time-slot-card:hover {
+  border-color: #cbd5e1;
+}
+
+.sdu-time-slot-card.selected {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.sdu-time-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.sdu-time-slot-card strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #0f172a;
+}
+
+.sdu-time-slot-card span {
+  font-size: 0.74rem;
+  color: #64748b;
+}
+
+.sdu-slot-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Submit Action Button */
+.sdu-btn-submit-tx {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 15px 24px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.sdu-btn-submit-tx:hover:not(:disabled) {
+  background: #006241;
+  box-shadow: 0 8px 22px rgba(0, 98, 65, 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(11, 61, 46, 0.32);
 }
 
-/* ================================= */
-/* RESPONSIVE                         */
-/* ================================= */
-@media (max-width: 992px) {
-  .panduan-box {
-    padding: 32px 30px;
-  }
+.sdu-btn-submit-tx:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-  .panduan-steps {
-    flex-wrap: wrap;
-    gap: 16px;
-  }
+.sdu-submit-subnote {
+  text-align: center;
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
 
-  .panduan-step {
-    flex: 1 1 calc(33.333% - 16px);
-    min-width: 150px;
-  }
+/* Dampak Ekologis Box */
+.sdu-eco-impact-box {
+  background: #091E42;
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 
-  .step-connector {
+.sdu-eco-box-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.sdu-eco-box-content strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+  text-transform: capitalize;
+}
+
+.sdu-eco-box-content p {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+============================================================ */
+@media (max-width: 1024px) {
+  .sdu-tx-grid {
+    grid-template-columns: 1fr;
+  }
+  .sdu-tx-stepper-bar {
     display: none;
   }
 }
 
-@media (max-width: 576px) {
-  .panduan-box {
-    padding: 24px 18px;
-  }
-
-  .panduan-title {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-
-  .panduan-steps {
+@media (max-width: 640px) {
+  .sdu-tx-header {
     flex-direction: column;
-    gap: 14px;
+    align-items: flex-start;
   }
+  .sdu-cat-selector-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sdu-stepper-counter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sdu-preset-pills {
+    justify-content: space-between;
+  }
+  .sdu-income-estimate-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sdu-time-slots-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-  .panduan-step {
-    width: 100%;
-    flex: 1 1 100%;
-  }
+/* ============================================================
+   CONFIRMATION MODAL POP-UP STYLES
+============================================================ */
 
-  .step-card {
-    flex-direction: row;
-    text-align: left;
-    align-items: center;
-    gap: 12px;
-    min-height: auto;
-    padding: 14px 16px;
-  }
+.sdu-confirm-modal-card {
+  background: #ffffff;
+  border-radius: 22px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.3);
+  border: 1px solid #e2e8f0;
+  animation: modalScaleUp 0.2s ease;
+}
 
-  .step-icon {
-    margin-bottom: 0;
-    flex-shrink: 0;
-  }
+.sdu-confirm-header {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .step-number {
-    top: -8px;
-    left: -8px;
-    width: 22px;
-    height: 22px;
-    font-size: 11px;
-  }
+.sdu-confirm-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
 
-  .step-connector {
-    display: none;
-  }
+.sdu-confirm-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #10b981;
+  letter-spacing: 0.05em;
+}
 
-  .transaksi-kanan {
-    padding: 24px 16px 0 16px;
-  }
+.sdu-confirm-title-group h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
 
-  .transaksi-container {
-    padding: 20px;
-  }
+.sdu-confirm-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-confirm-close-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.sdu-confirm-body {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sdu-confirm-main-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sdu-confirm-thumb-wrap {
+  width: 68px;
+  height: 68px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1.5px solid #cbd5e1;
+}
+
+.sdu-confirm-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sdu-confirm-highlight-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sdu-confirm-cat-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: #ecfdf5;
+  color: #006241;
+  border: 1px solid #a7f3d0;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  text-transform: uppercase;
+}
+
+.sdu-confirm-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sdu-confirm-lbl {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.04em;
+}
+
+.sdu-confirm-price-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #006241;
+}
+
+.sdu-confirm-rate-sub {
+  font-size: 0.74rem;
+  color: #64748b;
+}
+
+.sdu-confirm-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.sdu-confirm-detail-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sdu-confirm-detail-item.full {
+  grid-column: span 2;
+}
+
+.sdu-confirm-item-lbl {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sdu-confirm-item-lbl svg {
+  color: #006241;
+}
+
+.sdu-confirm-detail-item strong {
+  font-size: 0.88rem;
+  color: #0f172a;
+}
+
+.sdu-confirm-address-text {
+  line-height: 1.4;
+}
+
+.sdu-confirm-coords-text {
+  font-size: 0.72rem;
+  color: #059669;
+  font-weight: 700;
+}
+
+.sdu-confirm-detail-item.note {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.sdu-confirm-note-p {
+  font-size: 0.8rem;
+  color: #92400e;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Question Box */
+.sdu-confirm-question-box {
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.sdu-confirm-q-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #10b981;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sdu-confirm-q-text h4 {
+  margin: 0 0 4px 0;
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: #064e3b;
+}
+
+.sdu-confirm-q-text p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #047857;
+  line-height: 1.45;
+}
+
+/* Modal Footer */
+.sdu-confirm-footer {
+  padding: 16px 22px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 10px;
+}
+
+.sdu-btn-confirm-cancel {
+  flex: 1;
+  background: #ffffff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-confirm-cancel:hover {
+  background: #f1f5f9;
+}
+
+.sdu-btn-confirm-submit {
+  flex: 1.4;
+  background: #006241;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0, 98, 65, 0.25);
+  transition: all 0.2s ease;
+}
+
+.sdu-btn-confirm-submit:hover:not(:disabled) {
+  background: #004d34;
+  transform: translateY(-1px);
+}
+
+.sdu-btn-confirm-submit:disabled {
+  opacity: 0.75;
+  cursor: wait;
 }

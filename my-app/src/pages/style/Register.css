@@ -1,59 +1,43 @@
-:root {
-  --body: #eef6f0;
-  --putihCard: #ffffff;
-  --textabu: #55665f;
-  --hijaubtn: #0b3d2e;
-  --hijau-mid: #1f7a52;
-  --hijau-light: #2fa66d;
-  --gradasi-hijau: linear-gradient(
-    135deg,
-    #0b3d2e 0%,
-    #1f7a52 55%,
-    #2fa66d 100%
-  );
-  --inshigt: #d9f0e3;
-  --gold: #c9a45c;
-  --shadow-lembut: 0 8px 24px rgba(11, 61, 46, 0.12);
-}
-
-* {
-  box-sizing: border-box;
-}
+/* ==========================================================
+   SDU AUTHENTICATION - REGISTER PAGE STYLES
+========================================================== */
 
 .auth-page {
   min-height: 100vh;
   display: flex;
-  background: var(--body);
+  background: #f8fafc;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 /* ===== PANEL KIRI - BRANDING ===== */
 .auth-branding {
   width: 45%;
-  background: var(--gradasi-hijau);
+  background: linear-gradient(135deg, #0b3d2e 0%, #155e42 60%, #10b981 100%);
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 48px;
 }
 
 .branding-blob {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
 }
 
 .branding-blob-1 {
-  width: 280px;
-  height: 280px;
+  width: 320px;
+  height: 320px;
   top: -100px;
   right: -80px;
 }
 
 .branding-blob-2 {
-  width: 240px;
-  height: 240px;
+  width: 280px;
+  height: 280px;
   bottom: -100px;
   left: -80px;
 }
@@ -62,20 +46,23 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  max-width: 380px;
+  max-width: 400px;
+  color: #ffffff;
 }
 
 .branding-logo {
-  width: 80px;
-  height: 80px;
+  width: 84px;
+  height: 84px;
   margin: 0 auto 20px auto;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px;
-  backdrop-filter: blur(4px);
+  padding: 16px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .branding-logo img {
@@ -86,41 +73,40 @@
 
 .branding-content h2 {
   color: #ffffff;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 800;
   margin: 0 0 8px 0;
-  letter-spacing: 1px;
+  letter-spacing: -0.02em;
 }
 
 .branding-tagline {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 14px;
-  margin: 0 0 40px 0;
+  margin: 0 0 36px 0;
+  line-height: 1.5;
 }
 
 .branding-quote {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(6px);
-  border-radius: 18px;
-  padding: 22px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  text-align: left;
 }
 
 .quote-icon {
-  color: var(--gold);
+  color: #a7f3d0;
   font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .branding-quote p {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 13.5px;
+  line-height: 1.55;
   margin: 0;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.6;
+  font-style: italic;
 }
 
 /* ===== PANEL KANAN - FORM ===== */
@@ -129,170 +115,447 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 40px 60px 40px;
-  overflow-y: auto;
+  padding: 36px 40px;
+  background: #f8fafc;
 }
 
 .register-form {
   width: 100%;
-  max-width: 440px;
-  background: var(--putihCard);
-  padding: 36px 40px;
-  border-radius: 24px;
-  box-shadow: var(--shadow-lembut);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  max-width: 480px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 30px 34px;
+  box-shadow: 0 4px 25px rgba(15, 23, 42, 0.05);
 }
 
-.form-icon-badge {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: var(--inshigt);
-  color: var(--hijau-mid);
-  font-size: 22px;
+.register-form.register-form-wide {
+  max-width: 620px;
+}
+
+.form-header-inline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.form-header-inline .form-icon-badge {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.form-header-inline .form-subtitle {
+  margin: 0;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.input-hint {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.hidden-file-input {
+  display: none !important;
+}
+
+.sdu-upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 106px;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 10px;
+  transition: all 0.2s ease;
+}
+
+.sdu-upload-dropzone svg {
+  font-size: 20px;
+  color: #059669;
+  margin-bottom: 2px;
+}
+
+.sdu-upload-dropzone.ktp svg {
+  color: #0284c7;
+}
+
+.sdu-upload-dropzone small {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.sdu-upload-dropzone:hover {
+  border-color: #059669;
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.sdu-upload-dropzone.ktp:hover {
+  border-color: #0284c7;
+  background: #eff6ff;
+  color: #0369a1;
+}
+
+.sdu-upload-preview-box {
+  position: relative;
+  height: 106px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid #10b981;
+  background: #0f172a;
+}
+
+.sdu-upload-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sdu-remove-file-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 12px;
+}
+
+.sdu-remove-file-btn:hover {
+  background: #ef4444;
+}
+
+.sdu-file-tag {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(5, 150, 105, 0.9);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.sdu-file-tag.ktp {
+  background: rgba(2, 132, 199, 0.9);
+}
+
+.sdu-auth-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+
+.sdu-auth-alert.error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.sdu-auth-alert.warning {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.sdu-verif-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #166534;
+  margin: 4px 0 8px 0;
+  line-height: 1.45;
+}
+
+.sdu-verif-disclaimer svg {
+  font-size: 15px;
+  color: #059669;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Registration Success Card */
+.sdu-reg-success-card {
+  text-align: center;
+  max-width: 500px;
+  padding: 36px 32px;
+}
+
+.sdu-reg-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #d1fae5;
+  color: #059669;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}
+
+.sdu-reg-success-desc {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.sdu-reg-status-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.sdu-step-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.sdu-step-box.done {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.sdu-step-box.active {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.sdu-step-box .step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sdu-step-box.done .step-num {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.sdu-step-box.active .step-num {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.sdu-step-box strong {
+  display: block;
+  font-size: 13px;
+}
+
+.sdu-step-box small {
+  display: block;
+  font-size: 11.5px;
+  opacity: 0.9;
+}
+
+.sdu-reg-success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sdu-back-home-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: #059669;
+  text-decoration: none;
+}
+
+.sdu-back-home-link:hover {
+  text-decoration: underline;
+}
+
+.form-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #ecfdf5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
   margin-bottom: 18px;
 }
 
 .register-form h1 {
-  margin: 0 0 6px 0;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
-  color: var(--hijaubtn);
+  color: #0f172a;
+  margin: 0 0 6px 0;
 }
 
-.form-subtitle {
-  margin: 0 0 22px 0;
-  color: var(--textabu);
-  font-size: 13px;
+.register-form .form-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0 0 20px 0;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
+  gap: 6px;
   margin-bottom: 14px;
 }
 
 .input-group label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 6px;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--hijaubtn);
+  font-weight: 700;
+  color: #334155;
 }
 
 .input-group label svg {
-  color: var(--hijau-mid);
+  color: #059669;
   font-size: 12px;
 }
 
-.input-group input,
-.input-group textarea {
-  padding: 12px 14px;
-  border: 1px solid #dcebe1;
-  border-radius: 10px;
-  background: var(--body);
-  color: var(--hijaubtn);
-  font-size: 14px;
+.input-group input {
+  width: 100%;
   box-sizing: border-box;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
+  padding: 10px 14px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
   font-family: inherit;
-}
-
-.input-group textarea {
-  resize: none;
-}
-
-.input-group input:focus,
-.input-group textarea:focus {
+  font-size: 14px;
+  color: #0f172a;
+  background: #ffffff;
   outline: none;
-  border-color: var(--hijau-light);
-  box-shadow: 0 0 0 3px rgba(47, 166, 109, 0.15);
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+}
+
+.register-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0f172a;
+  background: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+  resize: vertical;
+}
+
+.register-form textarea:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
 }
 
 .input-wrapper {
   position: relative;
-  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .input-wrapper input {
-  width: 100%;
-  padding: 12px 45px 12px 14px;
-  border: 1px solid #dcebe1;
-  border-radius: 10px;
-  background: var(--body);
-  color: var(--hijaubtn);
-  font-size: 14px;
-  box-sizing: border-box;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-}
-
-.input-wrapper input:focus {
-  outline: none;
-  border-color: var(--hijau-light);
-  box-shadow: 0 0 0 3px rgba(47, 166, 109, 0.15);
+  padding-right: 42px;
 }
 
 .eye-btn {
   position: absolute;
-  top: 50%;
   right: 12px;
-  transform: translateY(-50%);
-  border: none;
   background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 14px;
   cursor: pointer;
-  color: var(--textabu);
-  font-size: 15px;
+  padding: 4px;
 }
 
 .eye-btn:hover {
-  color: var(--hijau-mid);
+  color: #475569;
 }
 
-.submit-btn,
-.register-form > button[type="submit"] {
+.submit-btn {
   width: 100%;
-  padding: 14px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: #0f3e2e;
+  color: #ffffff;
   border: none;
-  border-radius: 12px;
-  background: var(--gradasi-hijau);
-  color: white;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 800;
   cursor: pointer;
-  font-size: 15px;
-  font-weight: 700;
-  margin-top: 8px;
-  box-shadow: 0 6px 16px rgba(11, 61, 46, 0.25);
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+  transition: all 0.2s ease;
+  margin-top: 10px;
 }
 
-.submit-btn:hover,
-.register-form > button[type="submit"]:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(11, 61, 46, 0.32);
+.submit-btn:hover {
+  background: #17543f;
+  transform: translateY(-1px);
 }
 
 .btn-reg {
   text-align: center;
-  margin-top: 16px;
   font-size: 13px;
-  color: var(--textabu);
+  color: #64748b;
+  margin: 18px 0 0 0;
 }
 
 .btn-reg a {
-  color: var(--hijau-mid);
-  font-weight: 700;
+  color: #059669;
+  font-weight: 800;
   text-decoration: none;
 }
 
@@ -300,59 +563,26 @@
   text-decoration: underline;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .auth-page {
     flex-direction: column;
   }
-
   .auth-branding {
     width: 100%;
-    padding: 40px 24px;
+    padding: 36px 20px;
   }
-
-  .branding-content {
-    max-width: 100%;
-  }
-
   .auth-form-section {
     width: 100%;
-    padding: 30px 20px 50px 20px;
+    padding: 30px 16px;
   }
-
-  .register-form {
-    padding: 28px 24px;
-  }
-}
-
-@media (max-width: 576px) {
-  .branding-logo {
-    width: 64px;
-    height: 64px;
-  }
-
-  .branding-content h2 {
-    font-size: 24px;
-  }
-
-  .branding-tagline {
-    font-size: 13px;
-    margin-bottom: 28px;
-  }
-
-  .branding-quote {
-    padding: 16px;
-  }
-
-  .branding-quote p {
-    font-size: 13px;
-  }
-
   .register-form {
     padding: 24px 20px;
   }
+}
 
-  .register-form h1 {
-    font-size: 20px;
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 }

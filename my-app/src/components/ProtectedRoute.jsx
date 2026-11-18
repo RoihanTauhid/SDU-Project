@@ -6,8 +6,13 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/login" />;
   }
 
-  if (user.role != "user") {
+  if (user.role !== "user") {
     return <Navigate to="/admin/dashboard" />;
+  }
+
+  if (user.status_verifikasi && user.status_verifikasi !== "verified") {
+    localStorage.removeItem("user");
+    return <Navigate to="/login" />;
   }
 
   return children;

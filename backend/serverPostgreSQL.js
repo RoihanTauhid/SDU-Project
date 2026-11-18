@@ -159,6 +159,7 @@ app.post("/transaksi", async (req, res) => {
       longitude,
       harga100gr,
       totalharga,
+      bonus,
       foto,
     } = req.body;
 
@@ -174,12 +175,13 @@ app.post("/transaksi", async (req, res) => {
         longitude,
         harga100gr,
         totalharga,
+        bonus,
         status,
         foto
       )
       VALUES
       (
-        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12
       )
       RETURNING *
     `;
@@ -194,6 +196,7 @@ app.post("/transaksi", async (req, res) => {
       longitude,
       harga100gr,
       totalharga,
+      Number(bonus) || 0,
       status,
       foto,
     ]);
@@ -554,6 +557,37 @@ app.get("/admin/grafik-kategori", async (req, res) => {
     res.status(500).json({
       message: "Gagal mengambil data kategori",
     });
+  }
+});
+
+// =========================
+// Target Bonus Transaksi
+// =========================
+app.get("/target-bonus", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM target_bonus WHERE id = 1 LIMIT 1");
+    if (result.rows.length === 0) {
+      return res.json({ min_berat: 20, bonus: 5000, is_active: 1 });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.log(err);
+    res.json({ min_berat: 20, bonus: 5000, is_active: 1 });
+  }
+});
+
+app.put("/admin/target-bonus", async (req, res) => {
+  try {
+    const { min_berat, bonus, is_active } = req.body;
+    const sql = `UPDATE target_bonus SET min_berat = $1, bonus = $2, is_active = $3 WHERE id = 1`;
+    await db.query(sql, [Number(min_berat) || 20, Number(bonus) || 0, is_active ? 1 : 0]);
+    res.json({
+      message: "Pengaturan target bonus berhasil diperbarui",
+      data: { min_berat: Number(min_berat) || 20, bonus: Number(bonus) || 0, is_active: is_active ? 1 : 0 },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Gagal memperbarui target bonus" });
   }
 });
 

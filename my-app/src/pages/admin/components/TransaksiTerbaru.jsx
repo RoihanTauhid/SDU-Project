@@ -1,34 +1,61 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReceipt } from "@fortawesome/free-solid-svg-icons";
+import { faReceipt, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "./style/TransaksiTerbaru.css";
 
-const TransaksiTerbaru = ({ transactions }) => {
+const TransaksiTerbaru = ({ transactions = [] }) => {
   return (
-    <div className="transaksi-terbaru">
-      <div className="section-title">
-        <FontAwesomeIcon icon={faReceipt} />
-        <h2>Transaksi Terbaru</h2>
+    <div className="sdu-admin-recent-card">
+      <div className="sdu-recent-header">
+        <div className="sdu-recent-title-group">
+          <div className="sdu-recent-icon-wrap receipt">
+            <FontAwesomeIcon icon={faReceipt} />
+          </div>
+          <div>
+            <h3 className="sdu-recent-title">Transaksi Terkini</h3>
+            <span className="sdu-recent-sub">5 transaksi terakhir yang masuk sistem</span>
+          </div>
+        </div>
+
+        <Link to="/admin/transaksi" className="sdu-recent-link">
+          <span>Kelola Semua</span>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </Link>
       </div>
 
-      {transactions.length === 0 ? (
-        <p className="empty-text">Belum ada transaksi.</p>
-      ) : (
-        transactions.slice(0, 5).map((item) => (
-          <div className="transaksi-row" key={item.id}>
-            <div>
-              <strong>{item.nama}</strong>
-              <p>
-                {item.kategori} - {(item.berat / 1000).toLocaleString("id-ID")}{" "}
-                kg
-              </p>
-            </div>
-            <span className={`status-badge ${item.status.toLowerCase()}`}>
-              {item.status}
-            </span>
-          </div>
-        ))
-      )}
+      <div className="sdu-recent-list">
+        {transactions.length === 0 ? (
+          <div className="sdu-recent-empty">Belum ada transaksi terekam.</div>
+        ) : (
+          transactions.slice(0, 5).map((item) => {
+            const beratKg = (Number(item.berat || 0) / 1000).toFixed(1);
+            const statusKey = item.status?.toLowerCase() || "menunggu";
+
+            return (
+              <div className="sdu-recent-item" key={item.id}>
+                <div className="sdu-recent-item-left">
+                  <div className="sdu-recent-item-main">
+                    <strong className="sdu-item-name">{item.nama || "Warga SDU"}</strong>
+                    <span className="sdu-item-cat">
+                      {item.kategori} • {beratKg} Kg
+                    </span>
+                  </div>
+                </div>
+
+                <div className="sdu-recent-item-right">
+                  <span className="sdu-item-nominal">
+                    Rp {Number(item.totalharga || 0).toLocaleString("id-ID")}
+                  </span>
+                  <span className={`sdu-item-status-pill ${statusKey}`}>
+                    {item.status}
+                  </span>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };

@@ -1,14 +1,18 @@
 FROM node:20-alpine
- 
+
 WORKDIR /app
- 
-COPY package*.json ./
-RUN npm install
- 
+
+# Copy seluruh source code backend beserta dependencies
 COPY . .
- 
-RUN mkdir -p uploads/transaksi uploads/profil
- 
-EXPOSE 5000
- 
+
+# Buat folder penyimpanan uploads untuk transaksi, profil, dan ktp
+RUN mkdir -p uploads/transaksi uploads/profil uploads/ktp
+
+# Environment default
+ENV PORT=5001
+
+# Port yang dibuka container (sesuai port server.js)
+EXPOSE 5001
+
+# Perintah menjalankan server
 CMD ["node", "server.js"]

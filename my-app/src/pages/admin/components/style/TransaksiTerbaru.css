@@ -1,79 +1,167 @@
-/* =========================
-   TRANSAKSI TERBARU
-========================= */
+/* ==========================================================
+   TRANSAKSI TERBARU WIDGET
+========================================================== */
 
-.transaksi-terbaru {
-  background: var(--putihCard);
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: var(--shadow-lembut);
-}
-
-.transaksi-row {
+.sdu-admin-recent-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.sdu-recent-header {
+  display: flex;
   align-items: center;
-  padding: 13px 4px;
-  border-bottom: 1px solid #e6f1ea;
-  transition: background 0.15s ease;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
-.transaksi-row:last-child {
-  border-bottom: none;
+.sdu-recent-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.transaksi-row:hover {
-  background: var(--body);
+.sdu-recent-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
 }
 
-.transaksi-row strong {
-  color: var(--hijaubtn);
-  font-size: 14px;
+.sdu-recent-icon-wrap.receipt {
+  background: #ecfdf5;
+  color: #059669;
 }
 
-.transaksi-row p {
-  margin: 3px 0 0 0;
-  color: var(--textabu);
+.sdu-recent-icon-wrap.user {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.sdu-recent-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.sdu-recent-sub {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.sdu-recent-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
-}
-
-/* STATUS BADGE */
-.status-badge {
-  width: fit-content;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 11px;
   font-weight: 700;
-  white-space: nowrap;
+  color: #059669;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
-.status-badge.menunggu {
-  background: #fff3cd;
-  color: #856404;
+.sdu-recent-link:hover {
+  color: #065f46;
+  text-decoration: underline;
 }
 
-.status-badge.diproses {
-  background: #d1ecf1;
-  color: #0c5460;
+.sdu-recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.status-badge.dijemput {
-  background: #d4edda;
-  color: #155724;
+.sdu-recent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
 }
 
-.status-badge.selesai {
-  background: #c8f7c5;
-  color: #1e7e34;
+.sdu-recent-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-@media (max-width: 992px) {
+.sdu-recent-item:hover {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
 }
 
-@media (max-width: 576px) {
-  .transaksi-terbaru,
-  .user-terbaru,
-  .grafik-card {
-    padding: 16px;
-  }
+.sdu-recent-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sdu-item-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sdu-item-cat {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.sdu-recent-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.sdu-item-nominal {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #059669;
+}
+
+.sdu-item-status-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  text-transform: capitalize;
+}
+
+.sdu-item-status-pill.menunggu {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.sdu-item-status-pill.diproses {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.sdu-item-status-pill.dijemput {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.sdu-item-status-pill.selesai {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.sdu-recent-empty {
+  padding: 24px;
+  text-align: center;
+  font-size: 12.5px;
+  color: #94a3b8;
 }

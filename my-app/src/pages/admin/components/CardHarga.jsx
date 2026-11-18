@@ -1,120 +1,239 @@
-import React, { useEffect, useState } from "react";
-import { getHargaAdmin } from "../../../services/hargaServices";
+import React, { useState } from "react";
+import { API_URL } from "../../../config/api";
 import "./style/CardHarga.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBottleWater,
+  faRecycle,
   faBoxOpen,
   faTrashCan,
   faTools,
   faWineGlass,
-  faRecycle,
   faFloppyDisk,
+  faCheck,
+  faCircleCheck,
+  faShieldHalved,
+  faWeightHanging,
+  faFire,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-const iconMap = {
-  plastik: faRecycle,
-  kardus: faBoxOpen,
-  botol: faBottleWater,
-  kaleng: faTrashCan,
-  besi: faTools,
-  pecah_belah: faWineGlass,
+// Metadata mapping matching Reference Image 5
+const categoryMeta = {
+  plastik: {
+    title: "Plastik",
+    tag: "High Demand",
+    tagClass: "tag-orange",
+    icon: faRecycle,
+    iconColor: "#059669",
+    code: "ID: PLS-001",
+    sub: "PET, HDPE, Galon, Gelas Mineral",
+    statusNote: "Status: Aktif di kalkulator setor mandiri & penjemputan",
+    statusType: "info",
+  },
+  kardus: {
+    title: "Kardus & Kertas",
+    tag: "Paling Dicari",
+    tagClass: "tag-blue",
+    icon: faBoxOpen,
+    iconColor: "#2563eb",
+    code: "ID: KRD-002",
+    sub: "Kardus Cokelat, HVS, Koran, Dupleks",
+    statusNote: "Status: Aktif / Kering & rapi terikat per bendel",
+    statusType: "info",
+  },
+  kaleng: {
+    title: "Kaleng & Aluminium",
+    tag: "Ekonomis Tinggi",
+    tagClass: "tag-amber",
+    icon: faTrashCan,
+    iconColor: "#d97706",
+    code: "ID: ALM-003",
+    sub: "Kaleng Soda, Seng Tipis, Plat Minuman",
+    statusNote: "Status: Aktif / Diutamakan kaleng yang telah dipipihkan",
+    statusType: "info",
+  },
+  besi: {
+    title: "Besi & Logam Berat",
+    tag: "Bobot Berat",
+    tagClass: "tag-indigo",
+    icon: faTools,
+    iconColor: "#4f46e5",
+    code: "ID: BSI-004",
+    sub: "Paku, Pipa Bekas, Rangka, Besi Beton",
+    statusNote: "Status: Aktif / Penanganan khusus bobot >10 Kg di depo",
+    statusType: "warn",
+  },
+  botol: {
+    title: "Botol Kaca",
+    tag: "Koleksi Utuh",
+    tagClass: "tag-cyan",
+    icon: faWineGlass,
+    iconColor: "#0891b2",
+    code: "ID: BOT-005",
+    sub: "Botol Sirup, Botol Kecap, Toples Kaca Utuh",
+    statusNote: "Syarat: Wajib utuh dan bersih dari minyak",
+    statusType: "warn",
+  },
+  pecah_belah: {
+    title: "Pecah Belah & Beling",
+    tag: "Safety Bag",
+    tagClass: "tag-red",
+    icon: faWineGlass,
+    iconColor: "#e11d48",
+    code: "ID: BLG-006",
+    sub: "Serpihan Kaca Bening, Piring/Gelas Pecah",
+    statusNote: "Syarat: Wajib dibungkus karung goni tebal",
+    statusType: "alert",
+  },
 };
 
-function getIconKategori(kategori) {
-  return iconMap[kategori?.toLowerCase()] || faRecycle;
+function getMeta(kat = "") {
+  const k = kat.toLowerCase().replace(/\s+/g, "_");
+  return (
+    categoryMeta[k] || {
+      title: kat,
+      tag: "Standar",
+      tagClass: "tag-blue",
+      icon: faRecycle,
+      iconColor: "#059669",
+      code: `ID: ${kat.substring(0, 3).toUpperCase()}-00`,
+      sub: "Material daur ulang terpilah",
+      statusNote: "Status: Aktif dalam sistem",
+      statusType: "info",
+    }
+  );
 }
 
-function CardHarga() {
-  const [harga, setHarga] = useState([]);
+function CardHarga({ hargaList, onUpdateSuccess }) {
+  const [localHarga, setLocalHarga] = useState({});
   const [savingId, setSavingId] = useState(null);
+  const [successId, setSuccessId] = useState(null);
 
-  useEffect(() => {
-    const loadData = async () => {
-      const data = await getHargaAdmin();
-      setHarga(data);
-    };
-
-    loadData();
-  }, []);
-
-  const handleHargaChange = (id, value) => {
-    setHarga((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              harga: value,
-            }
-          : item,
-      ),
-    );
+  const handleInputChange = (id, val) => {
+    setLocalHarga((prev) => ({
+      ...prev,
+      [id]: val,
+    }));
   };
 
-  const simpanHarga = async (id, hargaBaru) => {
-    setSavingId(id);
+  const getEffectivePrice = (item) => {
+    return localHarga[item.id] !== undefined ? localHarga[item.id] : item.harga;
+  };
+
+  const handleSave = async (item) => {
+    const newPrice = getEffectivePrice(item);
+    const admin = JSON.parse(localStorage.getItem("user")) || {};
+    setSavingId(item.id);
     try {
-      const response = await fetch(
-        `https://sdu-project.web.id/api/admin/harga/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            harga: hargaBaru,
-          }),
-        },
-      );
+      const response = await fetch(`${API_URL}admin/harga/${item.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          harga: Number(newPrice),
+          diubah_oleh: admin.nama || "Admin Utama",
+          role: "Admin Operasional",
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Gagal memperbarui tarif");
+      }
+      await response.json();
+      setSuccessId(item.id);
+      setTimeout(() => setSuccessId(null), 2500);
 
-      const data = await response.json();
-
-      alert(data.message);
-    } catch (error) {
-      console.log(error);
-      alert("Gagal update harga");
+      if (onUpdateSuccess) {
+        onUpdateSuccess(item, newPrice);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Gagal memperbarui tarif master.");
     } finally {
       setSavingId(null);
     }
   };
 
   return (
-    <div className="harga-grid">
-      {harga.map((item) => {
-        const hargaPerKg = Number(item.harga || 0) * 10;
+    <div className="sdu-master-pricing-grid">
+      {hargaList.map((item) => {
+        const meta = getMeta(item.kategori);
+        const current100g = Number(getEffectivePrice(item)) || 0;
+        const currentKg = current100g * 10;
+        const isSaving = savingId === item.id;
+        const isSaved = successId === item.id;
 
         return (
-          <div key={item.id} className="harga-card">
-            <div className="harga-card-header">
-              <div className="harga-icon">
-                <FontAwesomeIcon icon={getIconKategori(item.kategori)} />
+          <div key={item.id} className="sdu-pricing-card">
+            {/* 1. Header with Icon, Title, Subtitle and Tag */}
+            <div className="sdu-pricing-card-header">
+              <div className="sdu-pricing-card-top-row">
+                <div className="sdu-pricing-title-group">
+                  <div
+                    className="sdu-pricing-icon-box"
+                    style={{ color: meta.iconColor }}
+                  >
+                    <FontAwesomeIcon icon={meta.icon} />
+                  </div>
+                  <div>
+                    <h3 className="sdu-pricing-title">{meta.title}</h3>
+                    <p className="sdu-pricing-sub">{meta.sub}</p>
+                  </div>
+                </div>
+
+                <span className={`sdu-pricing-tag ${meta.tagClass}`}>
+                  {meta.tag}
+                </span>
               </div>
-              <h3>{item.kategori}</h3>
             </div>
 
-            <label>Harga / 100 gram</label>
-            <div className="harga-input-wrapper">
-              <span className="input-prefix">Rp</span>
-              <input
-                type="number"
-                value={item.harga}
-                onChange={(e) => handleHargaChange(item.id, e.target.value)}
-              />
+            {/* 2. Rate per 100g Input Group */}
+            <div className="sdu-rate-input-section">
+              <label className="sdu-rate-input-label">Tarif Beli per 100 Gram</label>
+              <div className="sdu-rate-input-box">
+                <span className="sdu-currency-prefix">Rp</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="10"
+                  className="sdu-rate-number-input"
+                  value={current100g}
+                  onChange={(e) => handleInputChange(item.id, e.target.value)}
+                />
+                <span className="sdu-unit-suffix">/100g</span>
+              </div>
             </div>
 
-            <div className="harga-preview">
-              <span>Setara per Kg</span>
-              <strong>Rp {hargaPerKg.toLocaleString()}</strong>
+            {/* 3. Automatic Live Calc (10x per Kg) */}
+            <div className="sdu-auto-calc-box">
+              <div className="sdu-calc-label-col">
+                <span className="sdu-calc-badge">Kalkulasi Otomatis (10x)</span>
+                <span className="sdu-calc-desc">Harga Acuan per Kilogram</span>
+              </div>
+              <div className="sdu-calc-result-val">
+                <span className="sdu-calc-rp">Rp</span>
+                <strong className="sdu-calc-num">{currentKg.toLocaleString("id-ID")}</strong>
+                <span className="sdu-calc-kg">/ Kg</span>
+              </div>
             </div>
 
-            <button
-              className="btn-simpan-harga"
-              onClick={() => simpanHarga(item.id, item.harga)}
-              disabled={savingId === item.id}
-            >
-              <FontAwesomeIcon icon={faFloppyDisk} />
-              {savingId === item.id ? "Menyimpan..." : "Simpan"}
-            </button>
+            {/* 4. Quality condition / Status note */}
+            <div className={`sdu-pricing-status-note ${meta.statusType}`}>
+              <span>{meta.statusNote}</span>
+            </div>
+
+            {/* 5. Card Footer: ID Code + Save button */}
+            <div className="sdu-pricing-card-footer">
+              <span className="sdu-category-code">{meta.code}</span>
+              <button
+                className={`sdu-btn-save-pricing ${isSaved ? "saved" : ""}`}
+                onClick={() => handleSave(item)}
+                disabled={isSaving}
+              >
+                <FontAwesomeIcon icon={isSaved ? faCheck : faFloppyDisk} />
+                <span>
+                  {isSaving ? "Menyimpan..." : isSaved ? "Tersimpan" : "Simpan Perubahan"}
+                </span>
+              </button>
+            </div>
           </div>
         );
       })}
