@@ -283,8 +283,8 @@ app.get("/transaksi/user/:userId", (req, res) => {
       kurir.foto_kurir
     FROM transaksi
     LEFT JOIN kurir ON transaksi.kurir_id = kurir.id
-    WHERE user_id = ?
-    ORDER BY id DESC
+    WHERE transaksi.user_id = ?
+    ORDER BY transaksi.id DESC
   `;
 
   db.query(sql, [userId], (err, result) => {

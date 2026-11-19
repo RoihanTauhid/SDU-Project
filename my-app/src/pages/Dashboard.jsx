@@ -176,7 +176,9 @@ function Dashboard() {
                   </div>
                   <p className="sdu-track-sub">
                     {activeTrx.status === "Dijemput"
-                      ? "Kurir armada penjemput sedang menuju ke alamat Anda."
+                      ? activeTrx.nama_kurir
+                        ? `Kurir ${activeTrx.nama_kurir} (${activeTrx.plat_kendaraan || activeTrx.jenis_kendaraan || "Armada"}) sedang menuju ke alamat Anda.`
+                        : "Kurir armada penjemput sedang menuju ke alamat Anda."
                       : activeTrx.status === "Diproses"
                         ? "Jadwal penjemputan telah diagendakan oleh petugas depo."
                         : activeTrx.status === "Selesai"
@@ -188,7 +190,9 @@ function Dashboard() {
 
               <div className="sdu-track-right">
                 <div className="sdu-eta-box">
-                  <span className="sdu-eta-label">ESTIMASI TIBA</span>
+                  <span className="sdu-eta-label">
+                    {activeTrx.nama_kurir ? `KURIR: ${activeTrx.nama_kurir}` : "ESTIMASI TIBA"}
+                  </span>
                   <strong className="sdu-eta-time">
                     {activeTrx.status === "Dijemput"
                       ? "14.15 WIB (~12 Menit)"
@@ -197,15 +201,24 @@ function Dashboard() {
                 </div>
                 <button
                   className="sdu-track-contact-btn"
-                  onClick={() =>
-                    window.open(
-                      `https://wa.me/6283808421427?text=Halo%20Admin%20SDU,%20saya%20ingin%20cek%20status%20transaksi%20TRX-2026-${activeTrx.id}`,
-                      "_blank"
-                    )
-                  }
+                  onClick={() => {
+                    if (activeTrx.status === "Dijemput" && activeTrx.no_hp_kurir) {
+                      const cleanPhone = activeTrx.no_hp_kurir.replace(/\D/g, "");
+                      const intlPhone = cleanPhone.startsWith("0") ? "62" + cleanPhone.slice(1) : cleanPhone;
+                      window.open(
+                        `https://wa.me/${intlPhone}?text=Halo%20Kak%20${encodeURIComponent(activeTrx.nama_kurir)},%20saya%20pemilik%20order%20TRX-2026-${activeTrx.id}%20menunggu%20penjemputan.`,
+                        "_blank"
+                      );
+                    } else {
+                      window.open(
+                        `https://wa.me/6283808421427?text=Halo%20Admin%20SDU,%20saya%20ingin%20cek%20status%20transaksi%20TRX-2026-${activeTrx.id}`,
+                        "_blank"
+                      );
+                    }
+                  }}
                 >
                   <FontAwesomeIcon icon={faWhatsapp} />
-                  <span>Kontak</span>
+                  <span>{activeTrx.status === "Dijemput" && activeTrx.nama_kurir ? "Chat Kurir" : "Kontak"}</span>
                 </button>
               </div>
             </div>
