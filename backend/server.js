@@ -8,7 +8,7 @@ const fs = require("fs");
 const app = express();
 const mysql = require("mysql2");
 
-["uploads/transaksi", "uploads/profil", "uploads/ktp"].forEach((dir) => {
+["uploads/transaksi", "uploads/profil", "uploads/ktp", "uploads/kurir"].forEach((dir) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
@@ -56,6 +56,34 @@ db.getConnection((err, connection) => {
   db.query("SHOW COLUMNS FROM transaksi LIKE 'bonus'", (colErr, cols) => {
     if (!colErr && cols && cols.length === 0) {
       db.query("ALTER TABLE transaksi ADD COLUMN bonus INT DEFAULT 0 AFTER totalharga");
+    }
+  });
+
+  // Migrasi role kurir & tabel kurir jika belum ada
+  db.query("ALTER TABLE user MODIFY COLUMN role ENUM('admin', 'user', 'kurir') NOT NULL;");
+  db.query(`
+    CREATE TABLE IF NOT EXISTS kurir (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id INT NOT NULL,
+      nama VARCHAR(100) NOT NULL,
+      jenis_kelamin ENUM('Laki-laki', 'Perempuan') DEFAULT 'Laki-laki',
+      umur INT NOT NULL,
+      no_hp VARCHAR(20) NOT NULL,
+      foto_ktp VARCHAR(255) DEFAULT '',
+      foto_kurir VARCHAR(255) DEFAULT '',
+      foto_kendaraan VARCHAR(255) DEFAULT '',
+      plat_kendaraan VARCHAR(20) NOT NULL,
+      jenis_kendaraan VARCHAR(50) NOT NULL,
+      status ENUM('tersedia', 'bertugas', 'nonaktif') DEFAULT 'tersedia',
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+    );
+  `);
+
+  db.query("SHOW COLUMNS FROM transaksi LIKE 'kurir_id'", (kColErr, kCols) => {
+    if (!kColErr && kCols && kCols.length === 0) {
+      db.query("ALTER TABLE transaksi ADD COLUMN kurir_id INT NULL DEFAULT NULL AFTER user_id");
     }
   });
 });
@@ -182,6 +210,31 @@ const uploadRegister = multer({
   },
 });
 
+const storageKurir = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/kurir");
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueName + path.extname(file.originalname));
+  },
+});
+
+const uploadKurir = multer({
+  storage: storageKurir,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = /jpeg|jpg|png|webp/;
+    const extValid = allowed.test(path.extname(file.originalname).toLowerCase());
+    const mimeValid = allowed.test(file.mimetype);
+    if (extValid && mimeValid) {
+      cb(null, true);
+    } else {
+      cb(new Error("Format file harus JPG, JPEG, PNG, atau WEBP"));
+    }
+  },
+});
+
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
@@ -220,7 +273,19 @@ app.get("/transaksi", (req, res) => {
 app.get("/transaksi/user/:userId", (req, res) => {
   const { userId } = req.params;
 
-  const sql = "SELECT * FROM transaksi WHERE user_id = ? ORDER BY id DESC";
+  const sql = `
+    SELECT 
+      transaksi.*,
+      kurir.nama AS nama_kurir,
+      kurir.no_hp AS no_hp_kurir,
+      kurir.plat_kendaraan,
+      kurir.jenis_kendaraan,
+      kurir.foto_kurir
+    FROM transaksi
+    LEFT JOIN kurir ON transaksi.kurir_id = kurir.id
+    WHERE user_id = ?
+    ORDER BY id DESC
+  `;
 
   db.query(sql, [userId], (err, result) => {
     if (err) {
@@ -540,6 +605,26 @@ app.post("/login", (req, res) => {
       }
     }
 
+    // Jika role adalah kurir, sertakan data profil kurir
+    if (user.role === "kurir") {
+      db.query("SELECT * FROM kurir WHERE user_id = ?", [user.id], (kErr, kRows) => {
+        if (!kErr && kRows.length > 0) {
+          user.kurir_id = kRows[0].id;
+          user.kurir = kRows[0];
+          if (kRows[0].status === "nonaktif") {
+            return res.status(403).json({
+              message: "Akun kurir Anda saat ini sedang dinonaktifkan oleh Admin.",
+            });
+          }
+        }
+        return res.json({
+          message: "Login Berhasil",
+          user,
+        });
+      });
+      return;
+    }
+
     res.json({
       message: "Login Berhasil",
       user,
@@ -548,7 +633,21 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/admin/transaksi/", (req, res) => {
-  const sql = `SELECT transaksi.*,user.nama,user.no_hp FROM transaksi JOIN user ON transaksi.user_id = user.id ORDER BY transaksi.id DESC`;
+  const sql = `
+    SELECT 
+      transaksi.*,
+      user.nama,
+      user.no_hp,
+      kurir.nama AS nama_kurir,
+      kurir.no_hp AS no_hp_kurir,
+      kurir.plat_kendaraan,
+      kurir.jenis_kendaraan,
+      kurir.foto_kurir
+    FROM transaksi 
+    JOIN user ON transaksi.user_id = user.id 
+    LEFT JOIN kurir ON transaksi.kurir_id = kurir.id 
+    ORDER BY transaksi.id DESC
+  `;
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -578,9 +677,394 @@ app.put("/admin/transaksi/:id", (req, res) => {
       });
     }
 
+    // Jika status diubah menjadi Selesai, sinkronkan beban kurir
+    if (status === "Selesai") {
+      db.query("SELECT kurir_id FROM transaksi WHERE id = ?", [id], (sErr, sRows) => {
+        const kId = sRows?.[0]?.kurir_id;
+        if (kId) {
+          db.query(
+            "SELECT COUNT(*) AS activeCount FROM transaksi WHERE kurir_id = ? AND status IN ('Dijemput', 'Diproses')",
+            [kId],
+            (cErr, cRows) => {
+              if (!cErr && cRows?.[0]?.activeCount === 0) {
+                db.query("UPDATE kurir SET status = 'tersedia' WHERE id = ? AND status != 'nonaktif'", [kId]);
+              }
+            }
+          );
+        }
+      });
+    }
+
     res.json({
       message: "Status berhasil di perbarui",
     });
+  });
+});
+
+// ==========================================
+// KELOLA KURIR (ADMIN & COURIER DISPATCH API)
+// ==========================================
+
+// 1. Ambil daftar semua kurir + status beban kerja (active tasks)
+app.get("/admin/kurir", (req, res) => {
+  const sql = `
+    SELECT 
+      k.*,
+      u.username,
+      (SELECT COUNT(*) FROM transaksi t WHERE t.kurir_id = k.id AND t.status IN ('Dijemput', 'Diproses')) AS active_tasks,
+      (SELECT COUNT(*) FROM transaksi t WHERE t.kurir_id = k.id AND t.status = 'Selesai') AS completed_tasks
+    FROM kurir k
+    JOIN user u ON k.user_id = u.id
+    ORDER BY k.id DESC
+  `;
+  db.query(sql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Gagal mengambil data kurir" });
+    }
+    res.json(rows);
+  });
+});
+
+// 2. Tambah kurir baru (beserta akun login user role 'kurir' & upload foto)
+app.post(
+  "/admin/kurir",
+  uploadKurir.fields([
+    { name: "foto_ktp", maxCount: 1 },
+    { name: "foto_kurir", maxCount: 1 },
+    { name: "foto_kendaraan", maxCount: 1 },
+  ]),
+  (req, res) => {
+    const {
+      nama,
+      username,
+      password,
+      no_hp,
+      jenis_kelamin,
+      umur,
+      jenis_kendaraan,
+      plat_kendaraan,
+      alamat,
+    } = req.body;
+
+    if (!nama || !username || !password || !no_hp || !plat_kendaraan || !jenis_kendaraan) {
+      return res.status(400).json({
+        message: "Nama, username, password, nomor HP, plat, dan jenis kendaraan wajib diisi.",
+      });
+    }
+
+    const cleanUsername = username.trim().toLowerCase();
+    const cleanNoHp = no_hp.trim();
+
+    // Cek username atau no_hp sudah terdaftar
+    db.query(
+      "SELECT id FROM user WHERE username = ? OR no_hp = ?",
+      [cleanUsername, cleanNoHp],
+      (chkErr, chkRows) => {
+        if (chkErr) {
+          console.error(chkErr);
+          return res.status(500).json({ message: "Gagal memeriksa ketersediaan akun" });
+        }
+        if (chkRows.length > 0) {
+          return res.status(409).json({ message: "Username atau Nomor HP kurir sudah terdaftar." });
+        }
+
+        const foto_ktp = req.files?.foto_ktp?.[0]?.filename || "";
+        const foto_kurir = req.files?.foto_kurir?.[0]?.filename || "";
+        const foto_kendaraan = req.files?.foto_kendaraan?.[0]?.filename || "";
+
+        // Buat akun user kurir
+        const userSql = `
+          INSERT INTO user (nama, username, no_hp, password, role, status_verifikasi, alamat, foto_profil, foto_ktp)
+          VALUES (?, ?, ?, ?, 'kurir', 'verified', ?, ?, ?)
+        `;
+        db.query(
+          userSql,
+          [nama, cleanUsername, cleanNoHp, password, alamat || "", foto_kurir, foto_ktp],
+          (uErr, uRes) => {
+            if (uErr) {
+              console.error(uErr);
+              return res.status(500).json({ message: "Gagal membuat akun login kurir" });
+            }
+
+            const userId = uRes.insertId;
+
+            // Buat record profil kurir
+            const kurirSql = `
+              INSERT INTO kurir (user_id, nama, jenis_kelamin, umur, no_hp, foto_ktp, foto_kurir, foto_kendaraan, plat_kendaraan, jenis_kendaraan, status)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'tersedia')
+            `;
+            db.query(
+              kurirSql,
+              [
+                userId,
+                nama,
+                jenis_kelamin || "Laki-laki",
+                Number(umur) || 25,
+                cleanNoHp,
+                foto_ktp,
+                foto_kurir,
+                foto_kendaraan,
+                plat_kendaraan.trim().toUpperCase(),
+                jenis_kendaraan,
+              ],
+              (kErr, kRes) => {
+                if (kErr) {
+                  console.error(kErr);
+                  return res.status(500).json({ message: "Gagal menyimpan data kurir" });
+                }
+
+                res.status(201).json({
+                  message: "Kurir dan akun login berhasil ditambahkan!",
+                  id: kRes.insertId,
+                  user_id: userId,
+                });
+              }
+            );
+          }
+        );
+      }
+    );
+  }
+);
+
+// 3. Edit kurir
+app.put(
+  "/admin/kurir/:id",
+  uploadKurir.fields([
+    { name: "foto_ktp", maxCount: 1 },
+    { name: "foto_kurir", maxCount: 1 },
+    { name: "foto_kendaraan", maxCount: 1 },
+  ]),
+  (req, res) => {
+    const { id } = req.params;
+    const {
+      nama,
+      no_hp,
+      jenis_kelamin,
+      umur,
+      jenis_kendaraan,
+      plat_kendaraan,
+      status,
+      password,
+    } = req.body;
+
+    db.query("SELECT * FROM kurir WHERE id = ?", [id], (selErr, rows) => {
+      if (selErr || rows.length === 0) {
+        return res.status(404).json({ message: "Kurir tidak ditemukan" });
+      }
+
+      const old = rows[0];
+      const foto_ktp = req.files?.foto_ktp?.[0]?.filename || old.foto_ktp;
+      const foto_kurir = req.files?.foto_kurir?.[0]?.filename || old.foto_kurir;
+      const foto_kendaraan = req.files?.foto_kendaraan?.[0]?.filename || old.foto_kendaraan;
+
+      const updateKurirSql = `
+        UPDATE kurir SET 
+          nama = ?,
+          no_hp = ?,
+          jenis_kelamin = ?,
+          umur = ?,
+          jenis_kendaraan = ?,
+          plat_kendaraan = ?,
+          status = ?,
+          foto_ktp = ?,
+          foto_kurir = ?,
+          foto_kendaraan = ?
+        WHERE id = ?
+      `;
+
+      db.query(
+        updateKurirSql,
+        [
+          nama || old.nama,
+          no_hp || old.no_hp,
+          jenis_kelamin || old.jenis_kelamin,
+          Number(umur) || old.umur,
+          jenis_kendaraan || old.jenis_kendaraan,
+          (plat_kendaraan || old.plat_kendaraan).trim().toUpperCase(),
+          status || old.status,
+          foto_ktp,
+          foto_kurir,
+          foto_kendaraan,
+          id,
+        ],
+        (upErr) => {
+          if (upErr) {
+            console.error(upErr);
+            return res.status(500).json({ message: "Gagal memperbarui data kurir" });
+          }
+
+          // Sinkronkan ke tabel user jika nama/no_hp/password/foto_kurir berubah
+          let userSql = "UPDATE user SET nama = ?, no_hp = ?, foto_profil = ?";
+          const userParams = [nama || old.nama, no_hp || old.no_hp, foto_kurir];
+          if (password && password.trim()) {
+            userSql += ", password = ?";
+            userParams.push(password.trim());
+          }
+          userSql += " WHERE id = ?";
+          userParams.push(old.user_id);
+
+          db.query(userSql, userParams, () => {
+            res.json({ message: "Data kurir berhasil diperbarui" });
+          });
+        }
+      );
+    });
+  }
+);
+
+// 4. Update status kurir (tersedia / bertugas / nonaktif)
+app.put("/admin/kurir/:id/status", (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!["tersedia", "bertugas", "nonaktif"].includes(status)) {
+    return res.status(400).json({ message: "Status tidak valid" });
+  }
+
+  db.query("UPDATE kurir SET status = ? WHERE id = ?", [status, id], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Gagal mengubah status kurir" });
+    }
+    res.json({ message: "Status kurir berhasil diubah", status });
+  });
+});
+
+// 5. Hapus kurir
+app.delete("/admin/kurir/:id", (req, res) => {
+  const { id } = req.params;
+  db.query("SELECT user_id FROM kurir WHERE id = ?", [id], (selErr, rows) => {
+    if (selErr || rows.length === 0) {
+      return res.status(404).json({ message: "Kurir tidak ditemukan" });
+    }
+    const userId = rows[0].user_id;
+
+    // Lepas penugasan kurir di transaksi
+    db.query("UPDATE transaksi SET kurir_id = NULL WHERE kurir_id = ?", [id], () => {
+      db.query("DELETE FROM user WHERE id = ?", [userId], () => {
+        db.query("DELETE FROM kurir WHERE id = ?", [id], () => {
+          res.json({ message: "Kurir berhasil dihapus" });
+        });
+      });
+    });
+  });
+});
+
+// 6. Penugasan Kurir ke Transaksi oleh Admin (mendukung kurir bertugas sekalipun / multi-order)
+app.put("/admin/transaksi/:id/tugaskan-kurir", (req, res) => {
+  const { id } = req.params;
+  const { kurir_id, status } = req.body;
+
+  const targetStatus = status || "Dijemput";
+  const sql = "UPDATE transaksi SET kurir_id = ?, status = ? WHERE id = ?";
+
+  db.query(sql, [kurir_id || null, targetStatus, id], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Gagal menugaskan kurir" });
+    }
+
+    // Jika kurir ditugaskan, ubah status kurir menjadi 'bertugas' (kecuali nonaktif)
+    if (kurir_id) {
+      db.query(
+        "UPDATE kurir SET status = 'bertugas' WHERE id = ? AND status != 'nonaktif'",
+        [kurir_id]
+      );
+    }
+
+    res.json({
+      message: "Kurir berhasil ditugaskan ke orderan ini",
+      kurir_id,
+      status: targetStatus,
+    });
+  });
+});
+
+// 7. Ambil profil kurir berdasarkan user_id (untuk Dashboard Kurir)
+app.get("/kurir/profil/:userId", (req, res) => {
+  const { userId } = req.params;
+  const sql = `
+    SELECT 
+      k.*,
+      u.username,
+      (SELECT COUNT(*) FROM transaksi t WHERE t.kurir_id = k.id AND t.status IN ('Dijemput', 'Diproses')) AS active_tasks,
+      (SELECT COUNT(*) FROM transaksi t WHERE t.kurir_id = k.id AND t.status = 'Selesai') AS completed_tasks,
+      (SELECT COALESCE(SUM(t.berat), 0) FROM transaksi t WHERE t.kurir_id = k.id AND t.status = 'Selesai') AS total_berat_selesai
+    FROM kurir k
+    JOIN user u ON k.user_id = u.id
+    WHERE k.user_id = ?
+    LIMIT 1
+  `;
+  db.query(sql, [userId], (err, rows) => {
+    if (err || rows.length === 0) {
+      return res.status(404).json({ message: "Profil kurir tidak ditemukan" });
+    }
+    res.json(rows[0]);
+  });
+});
+
+// 8. Ambil daftar tugas penjemputan untuk Kurir
+app.get("/kurir/tugas/:kurirId", (req, res) => {
+  const { kurirId } = req.params;
+  const sql = `
+    SELECT 
+      t.*,
+      u.nama AS nama_warga,
+      u.no_hp AS no_hp_warga,
+      u.alamat AS alamat_warga
+    FROM transaksi t
+    JOIN user u ON t.user_id = u.id
+    WHERE t.kurir_id = ?
+    ORDER BY 
+      CASE 
+        WHEN t.status IN ('Diproses', 'Dijemput') THEN 1 
+        WHEN t.status = 'Menunggu' THEN 2 
+        ELSE 3 
+      END,
+      t.id DESC
+  `;
+  db.query(sql, [kurirId], (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Gagal mengambil daftar tugas" });
+    }
+    res.json(rows);
+  });
+});
+
+// 9. Kurir update status penjemputan (misal: 'Dijemput' -> 'Selesai')
+app.put("/kurir/transaksi/:id/status", (req, res) => {
+  const { id } = req.params;
+  const { status, kurir_id } = req.body;
+
+  if (!["Diproses", "Dijemput", "Selesai"].includes(status)) {
+    return res.status(400).json({ message: "Status tidak valid" });
+  }
+
+  const sql = "UPDATE transaksi SET status = ? WHERE id = ?";
+  db.query(sql, [status, id], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Gagal memperbarui status penjemputan" });
+    }
+
+    // Jika status diubah ke 'Selesai', periksa apakah kurir masih punya order aktif lain
+    if (status === "Selesai" && kurir_id) {
+      db.query(
+        "SELECT COUNT(*) AS activeCount FROM transaksi WHERE kurir_id = ? AND status IN ('Dijemput', 'Diproses')",
+        [kurir_id],
+        (cErr, cRows) => {
+          if (!cErr && cRows?.[0]?.activeCount === 0) {
+            // Jika tidak ada tugas aktif lagi, ubah status kurir kembali ke 'tersedia'
+            db.query("UPDATE kurir SET status = 'tersedia' WHERE id = ? AND status != 'nonaktif'", [kurir_id]);
+          }
+        }
+      );
+    }
+
+    res.json({ message: `Status penjemputan berhasil diperbarui menjadi ${status}` });
   });
 });
 

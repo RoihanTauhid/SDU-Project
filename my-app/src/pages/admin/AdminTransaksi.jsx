@@ -3,6 +3,10 @@ import {
   getAllTransaksi,
   updateStatusTransaksi,
 } from "../../services/transaksiService";
+import {
+  getAllKurir,
+  assignKurirToTransaksi,
+} from "../../services/kurirService";
 import AdminLayout from "../../layouts/AdminLayout";
 import "./style/AdminTransaksi.css";
 import StatusDropdown from "./components/StatusDropdown";
@@ -21,12 +25,21 @@ import {
   faLocationArrow,
   faXmark,
   faCheck,
+  faTruckFast,
+  faPlus,
+  faMotorcycle,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 function AdminTransaksi() {
   const [transaksi, setTransaksi] = useState([]);
+  const [kurirList, setKurirList] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Kurir Assignment Modal State
+  const [assignModalOpen, setAssignModalOpen] = useState(false);
+  const [trxToAssign, setTrxToAssign] = useState(null);
+  const [assignLoading, setAssignLoading] = useState(false);
 
   // Filters
   const [filterStatus, setFilterStatus] = useState("Semua");
@@ -44,12 +57,63 @@ function AdminTransaksi() {
   const loadTransaksi = async () => {
     try {
       setLoading(true);
-      const data = await getAllTransaksi();
-      setTransaksi(Array.isArray(data) ? data : []);
+      const [trxData, kData] = await Promise.all([
+        getAllTransaksi(),
+        getAllKurir().catch(() => []),
+      ]);
+      setTransaksi(Array.isArray(trxData) ? trxData : []);
+      setKurirList(Array.isArray(kData) ? kData : []);
     } catch (error) {
       console.error("Error loading transaksi:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAssignCourier = async (kurirId) => {
+    if (!trxToAssign) return;
+    try {
+      setAssignLoading(true);
+      await assignKurirToTransaksi(trxToAssign.id, kurirId, "Dijemput");
+      const chosenKurir = kurirList.find((k) => k.id === kurirId);
+
+      setTransaksi((prev) =>
+        prev.map((item) =>
+          item.id === trxToAssign.id
+            ? {
+                ...item,
+                kurir_id: kurirId,
+                nama_kurir: chosenKurir?.nama || "",
+                no_hp_kurir: chosenKurir?.no_hp || "",
+                plat_kendaraan: chosenKurir?.plat_kendaraan || "",
+                jenis_kendaraan: chosenKurir?.jenis_kendaraan || "",
+                foto_kurir: chosenKurir?.foto_kurir || "",
+                status: item.status === "Menunggu" ? "Dijemput" : item.status,
+              }
+            : item
+        )
+      );
+
+      if (selectedDetail && selectedDetail.id === trxToAssign.id) {
+        setSelectedDetail((prev) => ({
+          ...prev,
+          kurir_id: kurirId,
+          nama_kurir: chosenKurir?.nama || "",
+          no_hp_kurir: chosenKurir?.no_hp || "",
+          plat_kendaraan: chosenKurir?.plat_kendaraan || "",
+          jenis_kendaraan: chosenKurir?.jenis_kendaraan || "",
+          foto_kurir: chosenKurir?.foto_kurir || "",
+          status: prev.status === "Menunggu" ? "Dijemput" : prev.status,
+        }));
+      }
+
+      setAssignModalOpen(false);
+      setTrxToAssign(null);
+      getAllKurir().then(setKurirList).catch(() => {});
+    } catch (err) {
+      alert(err.message || "Gagal menugaskan kurir");
+    } finally {
+      setAssignLoading(false);
     }
   };
 
@@ -292,6 +356,7 @@ function AdminTransaksi() {
                     <th>Warga / Kontak</th>
                     <th>Kategori Material</th>
                     <th>Lokasi Penjemputan</th>
+                    <th>Kurir Bertugas</th>
                     <th>Bobot Timbang</th>
                     <th>Estimasi Nilai</th>
                     <th>Status Transaksi</th>
@@ -350,6 +415,38 @@ function AdminTransaksi() {
                                 : item.lokasi
                               : "-"}
                           </span>
+                        </td>
+                        <td>
+                          {item.nama_kurir ? (
+                            <div className="sdu-trx-kurir-cell">
+                              <div className="sdu-kurir-badge-assigned">
+                                <FontAwesomeIcon icon={faTruckFast} />
+                                <strong>{item.nama_kurir}</strong>
+                              </div>
+                              <span className="sdu-kurir-plate-sub">
+                                {item.plat_kendaraan} ({item.jenis_kendaraan})
+                              </span>
+                              <button
+                                className="sdu-btn-reassign"
+                                onClick={() => {
+                                  setTrxToAssign(item);
+                                  setAssignModalOpen(true);
+                                }}
+                              >
+                                Ganti Kurir
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              className="sdu-btn-assign-row"
+                              onClick={() => {
+                                setTrxToAssign(item);
+                                setAssignModalOpen(true);
+                              }}
+                            >
+                              <FontAwesomeIcon icon={faPlus} /> Tugaskan
+                            </button>
+                          )}
                         </td>
                         <td>
                           <strong className="sdu-adm-weight">{beratKg} Kg</strong>
@@ -541,6 +638,58 @@ function AdminTransaksi() {
                 )}
               </div>
 
+              {/* Kurir Bertugas Section */}
+              <div className="sdu-popup-kurir-box">
+                <div className="sdu-kurir-box-header">
+                  <FontAwesomeIcon icon={faTruckFast} />
+                  <span>Petugas Kurir Penjemput</span>
+                </div>
+                {selectedDetail.nama_kurir ? (
+                  <div className="sdu-kurir-detail-card">
+                    <div>
+                      <strong className="k-name">{selectedDetail.nama_kurir}</strong>
+                      <span className="k-veh">
+                        {selectedDetail.plat_kendaraan} ({selectedDetail.jenis_kendaraan})
+                      </span>
+                    </div>
+                    <div className="k-actions">
+                      {selectedDetail.no_hp_kurir && (
+                        <a
+                          href={`https://wa.me/${selectedDetail.no_hp_kurir.replace(/\D/g, "")}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="sdu-btn-wa-chip"
+                        >
+                          <FontAwesomeIcon icon={faWhatsapp} /> WA Kurir
+                        </a>
+                      )}
+                      <button
+                        className="sdu-btn-reassign-detail"
+                        onClick={() => {
+                          setTrxToAssign(selectedDetail);
+                          setAssignModalOpen(true);
+                        }}
+                      >
+                        Ganti Kurir
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="sdu-kurir-none-card">
+                    <span>Belum ada kurir yang ditugaskan.</span>
+                    <button
+                      className="sdu-btn-assign-detail-now"
+                      onClick={() => {
+                        setTrxToAssign(selectedDetail);
+                        setAssignModalOpen(true);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faPlus} /> Tugaskan Kurir
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {/* Waste Photo */}
               {selectedDetail.foto && (
                 <div className="sdu-popup-photo-card">
@@ -614,6 +763,98 @@ function AdminTransaksi() {
                 Tutup Jendela Detail
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ================= MODAL TUGASKAN KURIR ================= */}
+      {assignModalOpen && trxToAssign && (
+        <div className="sdu-modal-overlay">
+          <div className="sdu-assign-kurir-modal">
+            <div className="sdu-modal-header">
+              <div>
+                <h3>Tugaskan Kurir Penjemputan</h3>
+                <p>
+                  Order: <strong>#SDU-TRX-{String(trxToAssign.id).padStart(4, "0")}</strong> • {trxToAssign.nama || "Warga"} ({trxToAssign.lokasi})
+                </p>
+              </div>
+              <button
+                className="sdu-modal-close"
+                onClick={() => {
+                  setAssignModalOpen(false);
+                  setTrxToAssign(null);
+                }}
+              >
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
+            </div>
+
+            <div className="sdu-assign-hint">
+              💡 <em>Kurir yang sedang bertugas tetap dapat ditugaskan untuk penjemputan searah / searea.</em>
+            </div>
+
+            {kurirList.length === 0 ? (
+              <div className="sdu-kurir-empty-modal">
+                <p>Belum ada data kurir yang terdaftar.</p>
+                <a href="/admin/kurir" className="sdu-link-add-k">Ke Menu Kelola Kurir &rarr;</a>
+              </div>
+            ) : (
+              <div className="sdu-kurir-assign-list">
+                {kurirList.map((k) => {
+                  const activeCount = Number(k.active_tasks) || 0;
+                  const isCurrent = trxToAssign.kurir_id === k.id;
+                  const isNonaktif = k.status === "nonaktif";
+
+                  return (
+                    <div
+                      key={k.id}
+                      className={`sdu-kurir-assign-card ${isCurrent ? "current" : ""} ${isNonaktif ? "disabled" : ""}`}
+                    >
+                      <div className="sdu-assign-k-left">
+                        <div className="sdu-assign-k-avatar">
+                          {k.foto_kurir ? (
+                            <img src={getUploadUrl("kurir", k.foto_kurir)} alt={k.nama} />
+                          ) : (
+                            <span>{k.nama?.charAt(0) || "K"}</span>
+                          )}
+                        </div>
+                        <div>
+                          <div className="sdu-assign-k-name-row">
+                            <strong>{k.nama}</strong>
+                            {isCurrent && <span className="sdu-tag-current">Kurir Saat Ini</span>}
+                          </div>
+                          <span className="sdu-assign-k-veh">
+                            {k.jenis_kendaraan} • {k.plat_kendaraan}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="sdu-assign-k-right">
+                        <span
+                          className={`sdu-load-pill ${
+                            isNonaktif ? "gray" : activeCount > 0 ? "busy" : "free"
+                          }`}
+                        >
+                          {isNonaktif
+                            ? "Cuti / Nonaktif"
+                            : activeCount > 0
+                            ? `${activeCount} Tugas Jalan`
+                            : "Siap (0 Tugas)"}
+                        </span>
+
+                        <button
+                          className="sdu-btn-choose-kurir"
+                          disabled={assignLoading || isNonaktif}
+                          onClick={() => handleAssignCourier(k.id)}
+                        >
+                          {isCurrent ? "Tetapkan Ulang" : "Pilih Kurir"}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -12,6 +12,7 @@ import {
   faUserGear,
   faBars,
   faXmark,
+  faTruckFast,
 } from "@fortawesome/free-solid-svg-icons";
 import Ellipse from "../../../assets/Ellipse 395.png";
 import { getUploadUrl, API_URL } from "../../../config/api";
@@ -20,15 +21,17 @@ function AdminSidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingTrx, setPendingTrx] = useState(0);
   const [pendingUsers, setPendingUsers] = useState(0);
+  const [activeKurirCount, setActiveKurirCount] = useState(0);
   const admin = JSON.parse(localStorage.getItem("user")) || {};
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadBadges = async () => {
       try {
-        const [dashRes, statusRes] = await Promise.all([
+        const [dashRes, statusRes, kurirRes] = await Promise.all([
           fetch(`${API_URL}admin/dashboard`).then((r) => r.json()).catch(() => null),
           fetch(`${API_URL}admin/status-transaksi`).then((r) => r.json()).catch(() => []),
+          fetch(`${API_URL}admin/kurir`).then((r) => r.json()).catch(() => []),
         ]);
         if (dashRes && dashRes.pendingVerifikasi !== undefined) {
           setPendingUsers(Number(dashRes.pendingVerifikasi) || 0);
@@ -38,6 +41,12 @@ function AdminSidebar() {
             (s) => s.status?.toLowerCase() === "menunggu"
           );
           setPendingTrx(Number(waiting?.total) || 0);
+        }
+        if (Array.isArray(kurirRes)) {
+          const onDuty = kurirRes.filter(
+            (k) => Number(k.active_tasks) > 0 || k.status === "bertugas"
+          ).length;
+          setActiveKurirCount(onDuty);
         }
       } catch (err) {
         console.error("Failed loading sidebar badges:", err);
@@ -129,6 +138,22 @@ function AdminSidebar() {
           >
             <FontAwesomeIcon icon={faTag} className="sdu-aside-nav-icon" />
             <span>Kelola Harga</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/kurir"
+            className={({ isActive }) =>
+              `sdu-aside-nav-item ${isActive ? "active" : ""}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
+            <FontAwesomeIcon icon={faTruckFast} className="sdu-aside-nav-icon" />
+            <span className="sdu-nav-text">Kelola Kurir</span>
+            {activeKurirCount > 0 && (
+              <span className="sdu-aside-count-badge">
+                {activeKurirCount} Bertugas
+              </span>
+            )}
           </NavLink>
 
           <NavLink

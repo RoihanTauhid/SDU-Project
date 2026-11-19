@@ -547,3 +547,321 @@
     align-items: flex-start;
   }
 }
+
+/* ==========================================================
+   COURIER ASSIGNMENT & DISPATCH STYLES
+========================================================== */
+.sdu-trx-kurir-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sdu-kurir-badge-assigned {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ecfdf5;
+  color: #065f46;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid #a7f3d0;
+}
+
+.sdu-kurir-badge-assigned strong {
+  font-weight: 700;
+}
+
+.sdu-kurir-plate-sub {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.sdu-btn-reassign {
+  background: transparent;
+  border: none;
+  color: #059669;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+
+.sdu-btn-reassign:hover {
+  color: #047857;
+}
+
+.sdu-btn-assign-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px dashed #cbd5e1;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sdu-btn-assign-row:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+/* Detail Popup Kurir Box */
+.sdu-popup-kurir-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-top: 10px;
+}
+
+.sdu-kurir-box-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.sdu-kurir-detail-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.sdu-kurir-detail-card .k-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sdu-kurir-detail-card .k-veh {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.sdu-kurir-detail-card .k-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sdu-btn-change-k {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sdu-btn-change-k:hover {
+  background: #e2e8f0;
+}
+
+.sdu-kurir-none-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #64748b;
+  padding: 8px 0;
+}
+
+.sdu-btn-assign-detail-now {
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sdu-btn-assign-detail-now:hover {
+  background: #047857;
+}
+
+/* Kurir Assign Modal */
+.sdu-assign-kurir-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 95%;
+  max-width: 580px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.sdu-assign-hint {
+  background: #eff6ff;
+  border-left: 3px solid #3b82f6;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #1e40af;
+  margin: 12px 16px 4px 16px;
+  border-radius: 6px;
+}
+
+.sdu-kurir-assign-list {
+  padding: 12px 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.sdu-kurir-assign-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition: all 0.15s ease;
+  background: #ffffff;
+}
+
+.sdu-kurir-assign-card:hover {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.sdu-kurir-assign-card.current {
+  border-color: #059669;
+  background: #ecfdf5;
+}
+
+.sdu-kurir-assign-card.disabled {
+  opacity: 0.5;
+  background: #f8fafc;
+  pointer-events: none;
+}
+
+.sdu-assign-k-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sdu-assign-k-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.sdu-assign-k-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sdu-assign-k-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sdu-assign-k-sub {
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  gap: 6px;
+}
+
+.sdu-assign-k-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.sdu-workload-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.sdu-workload-pill.busy {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.sdu-workload-pill.free {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.sdu-btn-choose-kurir {
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sdu-btn-choose-kurir:hover {
+  background: #047857;
+}
+
+.sdu-btn-choose-kurir:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sdu-kurir-empty-modal {
+  padding: 32px 16px;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.sdu-link-add-k {
+  display: inline-block;
+  margin-top: 8px;
+  color: #059669;
+  font-weight: 700;
+  text-decoration: none;
+}
+

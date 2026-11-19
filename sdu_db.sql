@@ -41,6 +41,43 @@ INSERT INTO `harga_sampah` VALUES (1,'plastik',250),(2,'kardus',250),(3,'botol',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `kurir`
+--
+
+DROP TABLE IF EXISTS `kurir`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kurir` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') DEFAULT 'Laki-laki',
+  `umur` int NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `foto_ktp` varchar(255) DEFAULT '',
+  `foto_kurir` varchar(255) DEFAULT '',
+  `foto_kendaraan` varchar(255) DEFAULT '',
+  `plat_kendaraan` varchar(20) NOT NULL,
+  `jenis_kendaraan` varchar(50) NOT NULL,
+  `status` enum('tersedia','bertugas','nonaktif') DEFAULT 'tersedia',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `kurir_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kurir`
+--
+
+LOCK TABLES `kurir` WRITE;
+/*!40000 ALTER TABLE `kurir` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kurir` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `log_harga`
 --
 
@@ -105,6 +142,7 @@ DROP TABLE IF EXISTS `transaksi`;
 CREATE TABLE `transaksi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
+  `kurir_id` int DEFAULT NULL,
   `kategori` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `keterangan` text COLLATE utf8mb4_general_ci NOT NULL,
   `berat` int NOT NULL,
@@ -127,7 +165,7 @@ CREATE TABLE `transaksi` (
 
 LOCK TABLES `transaksi` WRITE;
 /*!40000 ALTER TABLE `transaksi` DISABLE KEYS */;
-INSERT INTO `transaksi` VALUES (31,17,'botol','Botol kaca minum , sirup , dll nya  [Waktu: Sore Hari 13.00-16.00 WIB]',10000,'Jl.Alhidayah No. 52, disamping pos delima',700,70000,0,'Selesai','2026-11-15 09:27:13',-6.39595068,106.89147402,'1794734505738-428306511.jpeg'),(33,17,'kardus','Kardus indomie ,jajanan , kopi , dllnya  [Waktu: Pagi Hari 09.00-12.00 WIB]',20000,'Jl.Alhidayah No. 52, disamping pos delima',250,55000,5000,'Menunggu','2026-11-15 11:02:17',-6.25551676,106.86555732,'1794740537872-405675496.jpeg');
+INSERT INTO `transaksi` VALUES (31,17,NULL,'botol','Botol kaca minum , sirup , dll nya  [Waktu: Sore Hari 13.00-16.00 WIB]',10000,'Jl.Alhidayah No. 52, disamping pos delima',700,70000,0,'Selesai','2026-11-15 09:27:13',-6.39595068,106.89147402,'1794734505738-428306511.jpeg'),(33,17,NULL,'kardus','Kardus indomie ,jajanan , kopi , dllnya  [Waktu: Pagi Hari 09.00-12.00 WIB]',20000,'Jl.Alhidayah No. 52, disamping pos delima',250,55000,5000,'Menunggu','2026-11-15 11:02:17',-6.25551676,106.86555732,'1794740537872-405675496.jpeg');
 /*!40000 ALTER TABLE `transaksi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +183,7 @@ CREATE TABLE `user` (
   `username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `role` enum('admin','user') COLLATE utf8mb4_general_ci NOT NULL,
+  `role` enum('admin','user','kurir') COLLATE utf8mb4_general_ci NOT NULL,
   `status_verifikasi` enum('pending','verified','rejected') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pending',
   `catatan_verifikasi` text COLLATE utf8mb4_general_ci,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -175,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-18 10:54:55
+-- Dump completed on 2026-11-19 11:04:28

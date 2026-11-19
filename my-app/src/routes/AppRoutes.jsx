@@ -15,6 +15,9 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import AdminRoute from "../components/AdminRoute";
 import AdminUser from "../pages/admin/AdminUser";
 import AdminUserDetail from "../pages/admin/AdminUserDetail";
+import AdminKurir from "../pages/admin/AdminKurir";
+import KurirDashboard from "../pages/kurir/KurirDashboard";
+import KurirRoute from "../components/KurirRoute";
 import Profil from "../pages/Profil";
 import Struk from "../pages/Struk";
 import AdminProfil from "../pages/admin/AdminProfil";
@@ -114,6 +117,22 @@ function AppRoutes() {
           <AdminRoute>
             <AdminHarga />
           </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/kurir"
+        element={
+          <AdminRoute>
+            <AdminKurir />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/kurir/dashboard"
+        element={
+          <KurirRoute>
+            <KurirDashboard />
+          </KurirRoute>
         }
       />
       <Route path="/admin/login" element={<Login />} />

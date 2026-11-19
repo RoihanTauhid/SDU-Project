@@ -24,6 +24,8 @@ function Login() {
     if (user) {
       if (user.role === "admin") {
         navigate("/admin/dashboard");
+      } else if (user.role === "kurir") {
+        navigate("/kurir/dashboard");
       } else if (!user.status_verifikasi || user.status_verifikasi === "verified") {
         navigate("/dashboard");
       } else {
@@ -58,6 +60,8 @@ function Login() {
 
       if (data.user.role === "admin") {
         navigate("/admin/dashboard");
+      } else if (data.user.role === "kurir") {
+        navigate("/kurir/dashboard");
       } else {
         navigate("/dashboard");
       }
