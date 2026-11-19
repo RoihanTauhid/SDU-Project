@@ -1,0 +1,57 @@
+name: SDU CI Pipeline
+
+# Kapan robot ini harus bekerja?
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # TUGAS 1: Uji & Build Frontend
+  frontend-check:
+    name: Test & Build Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil Kodingan dari GitHub
+        uses: actions/checkout@v4
+
+      - name: Siapkan Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: my-app/package-lock.json
+
+      - name: Install Dependensi Frontend
+        run: |
+          cd my-app
+          npm install
+
+      - name: Cek Build React (Vite)
+        run: |
+          cd my-app
+          npm run build
+
+  # TUGAS 2: Uji Backend
+  backend-check:
+    name: Test Backend Dependencies & Syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil Kodingan dari GitHub
+        uses: actions/checkout@v4
+
+      - name: Siapkan Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependensi Backend
+        run: |
+          cd backend
+          npm install
+
+      - name: Cek Sintaks Node.js
+        run: |
+          cd backend
+          node -c server.js
