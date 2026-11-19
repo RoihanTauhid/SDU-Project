@@ -22,14 +22,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.sdu-admin-mobile-brand:hover {
-  opacity: 0.9;
 }
 
 .sdu-admin-mobile-brand strong {
@@ -88,36 +80,19 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.sdu-aside-brand:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
 }
 
 .sdu-admin-icon-box {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: #ffffff;
+  background: #10b981;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 17px;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.sdu-admin-logo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 .sdu-aside-title-col {

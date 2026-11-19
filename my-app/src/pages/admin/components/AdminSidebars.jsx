@@ -15,7 +15,6 @@ import {
   faTruckFast,
 } from "@fortawesome/free-solid-svg-icons";
 import Ellipse from "../../../assets/Ellipse 395.png";
-import Logo from "../../../assets/Logo.png";
 import { getUploadUrl, API_URL } from "../../../config/api";
 
 function AdminSidebar() {
@@ -65,15 +64,15 @@ function AdminSidebar() {
     <>
       {/* Mobile Sticky Toggle Header */}
       <div className="sdu-admin-mobile-bar">
-        <Link to="/" className="sdu-admin-mobile-brand" title="Menuju ke Landing Page">
+        <div className="sdu-admin-mobile-brand">
           <div className="sdu-admin-icon-box">
-            <img src={Logo} alt="Logo SDU" className="sdu-admin-logo-img" />
+            <FontAwesomeIcon icon={faRecycle} />
           </div>
           <div>
             <strong>SDU ADMIN</strong>
             <span>Admin Panel</span>
           </div>
-        </Link>
+        </div>
 
         <button
           className="sdu-admin-hamburger"
@@ -88,15 +87,15 @@ function AdminSidebar() {
       <aside className={`sdu-admin-sidebar ${mobileOpen ? "open" : ""}`}>
         {/* Sidebar Brand Header */}
         <div className="sdu-aside-header">
-          <Link to="/" className="sdu-aside-brand" title="Menuju ke Landing Page">
+          <div className="sdu-aside-brand">
             <div className="sdu-admin-icon-box">
-              <img src={Logo} alt="Logo SDU" className="sdu-admin-logo-img" />
+              <FontAwesomeIcon icon={faRecycle} />
             </div>
             <div className="sdu-aside-title-col">
               <span className="sdu-aside-title">SDU</span>
               <span className="sdu-aside-sub">Sistem Daur Ulang</span>
             </div>
-          </Link>
+          </div>
           <span className="sdu-aside-panel-badge">ADMIN PANEL</span>
         </div>
 

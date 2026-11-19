@@ -52,7 +52,7 @@ function Navbar() {
         {/* ===== LOGO BRAND ===== */}
         <Link to="/" className="sdu-brand" title="SDU - Kembali ke Beranda Publik">
           <div className="sdu-brand-icon">
-            <img src={Logo} alt="Logo SDU" className="sdu-brand-img" />
+            <FontAwesomeIcon icon={faRecycle} />
           </div>
           <div className="sdu-brand-text">
             <span className="sdu-brand-title">SDU</span>
