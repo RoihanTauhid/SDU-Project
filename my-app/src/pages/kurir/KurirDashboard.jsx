@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Logo from "../../assets/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTruckFast,
@@ -183,10 +184,15 @@ export default function KurirDashboard() {
       {/* Top Mobile Bar Header */}
       <header className="sdu-kurir-header">
         <div className="sdu-kurir-header-top">
-          <div className="sdu-kurir-brand">
-            <span className="sdu-kurir-logo-pill">SDU DISPATCH</span>
-            <h1>Dashboard Kurir</h1>
-          </div>
+          <Link to="/" className="sdu-kurir-brand-link" title="SDU - Menuju ke Landing Page">
+            <div className="sdu-kurir-brand-logo-wrap">
+              <img src={Logo} alt="Logo SDU" className="sdu-kurir-brand-logo-img" />
+            </div>
+            <div className="sdu-kurir-brand">
+              <span className="sdu-kurir-logo-pill">SDU DISPATCH</span>
+              <h1>Dashboard Kurir</h1>
+            </div>
+          </Link>
 
           <div className="sdu-kurir-header-actions">
             <button
