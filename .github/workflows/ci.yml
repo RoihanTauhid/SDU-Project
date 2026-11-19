@@ -1,6 +1,5 @@
-name: SDU CI Pipeline
+name: SDU CI/CD Pipeline
 
-# Kapan robot ini harus bekerja?
 on:
   push:
     branches: [main]
@@ -8,7 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  # TUGAS 1: Uji & Build Frontend
+  # ==========================================================
+  # TUGAS 1: Uji & Build Frontend (CI)
+  # ==========================================================
   frontend-check:
     name: Test & Build Frontend
     runs-on: ubuntu-latest
@@ -33,7 +34,9 @@ jobs:
           cd my-app
           npm run build
 
-  # TUGAS 2: Uji Backend
+  # ==========================================================
+  # TUGAS 2: Uji Backend (CI)
+  # ==========================================================
   backend-check:
     name: Test Backend Dependencies & Syntax
     runs-on: ubuntu-latest
@@ -55,3 +58,42 @@ jobs:
         run: |
           cd backend
           node -c server.js
+
+  # ==========================================================
+  # TUGAS 3: Deploy Otomatis ke VPS (CD)
+  # ==========================================================
+  deploy-to-vps:
+    name: Deploy to Production VPS
+    runs-on: ubuntu-latest
+    # Hanya jalan jika TUGAS 1 & 2 KEDUANYA CENTANG HIJAU
+    needs: [frontend-check, backend-check]
+    # Hanya jalan saat ada push ke branch main
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      # Pengecekan cerdas agar pipeline tidak error jika Anda belum menyewa VPS
+      - name: Periksa Pengaturan VPS Secrets
+        id: check_vps
+        run: |
+          if [ -z "${{ secrets.VPS_HOST }}" ]; then
+            echo "configured=false" >> $GITHUB_OUTPUT
+            echo "INFO: Secrets VPS belum diatur. Melewati proses deploy..."
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+            echo "INFO: Konfigurasi VPS ditemukan. Menyiapkan deployment..."
+          fi
+
+      # Langkah ini hanya dieksekusi jika Anda sudah mengisi GitHub Secrets
+      - name: Login via SSH & Jalankan Docker di Server
+        if: steps.check_vps.outputs.configured == 'true'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            cd ~/Project_SDU || cd /var/www/Project_SDU || exit 1
+            git pull origin main
+            docker compose up -d --build
+            docker image prune -f
